@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['demo-email'];
     $message = $_POST['demo-message'];
 
-    $to = "robert.contofalsky@mail.mcgill.ca";
+    $to = "robert.contofalsky@rutgers.edu";
     $subject = "New message from your guest form";
     $headers = "From: " . $email . "\r\n";
     $headers .= "Reply-To: " . $email . "\r\n";
