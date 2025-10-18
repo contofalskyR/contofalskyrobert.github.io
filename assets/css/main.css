@@ -1656,3 +1656,44 @@ input, select, textarea {
 		body.is-preload #footer {
 			opacity: 0;
 		}
+
+/* Podcast Episode Thumbnails */
+.podcast-episodes {
+	list-style: none;
+	padding: 0;
+}
+
+.podcast-episodes li {
+	margin-bottom: 1.5em;
+}
+
+.episode-link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	padding: 0.75em;
+	border-radius: 4px;
+	transition: all 0.3s ease;
+}
+
+.episode-link:hover {
+	background: rgba(255, 255, 255, 0.05);
+	border-color: rgba(255, 255, 255, 0.4);
+	transform: translateX(5px);
+}
+
+.episode-thumbnail {
+	width: 120px;
+	height: 90px;
+	object-fit: cover;
+	border-radius: 4px;
+	margin-right: 1em;
+	flex-shrink: 0;
+}
+
+.episode-title {
+	color: #ffffff;
+	font-size: 0.95em;
+	line-height: 1.4;
+}
