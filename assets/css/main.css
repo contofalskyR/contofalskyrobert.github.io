@@ -1760,7 +1760,7 @@ input, select, textarea {
 /* Podcast Platforms - ADD THIS NEW SECTION */
 .podcast-platforms {
 	display: flex;
-	gap: 1em;
+	gap: 0.5em;
 	margin: 1.5em 0;
 	flex-wrap: wrap;
 	align-items: center;
