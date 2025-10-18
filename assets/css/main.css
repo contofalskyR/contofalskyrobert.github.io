@@ -1756,3 +1756,26 @@ input, select, textarea {
 .episode-links a:hover {
 	text-decoration: underline;
 }
+
+/* Podcast Platforms - ADD THIS NEW SECTION */
+.podcast-platforms {
+	display: flex;
+	gap: 1em;
+	margin: 1.5em 0;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.podcast-platforms a {
+	display: block;
+}
+
+.podcast-platforms img {
+	height: 40px;
+	width: auto;
+	transition: opacity 0.3s ease;
+}
+
+.podcast-platforms img:hover {
+	opacity: 0.8;
+}
