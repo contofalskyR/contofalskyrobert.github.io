@@ -1701,3 +1701,56 @@ input, select, textarea {
 	font-size: 0.95em;
 	line-height: 1.4;
 }
+
+/* All Episodes Page */
+.all-episodes-list {
+	list-style: none;
+	padding: 0;
+}
+
+.all-episodes-list li {
+	margin-bottom: 2em;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	padding-bottom: 1.5em;
+}
+
+.all-episodes-list li:last-child {
+	border-bottom: none;
+}
+
+.full-episode-link {
+	text-decoration: none;
+	display: block;
+	transition: all 0.3s ease;
+}
+
+.full-episode-link:hover {
+	transform: translateX(5px);
+}
+
+.full-episode-link h4 {
+	color: #ffffff;
+	margin-bottom: 0.5em;
+	font-size: 1.1em;
+}
+
+.episode-meta {
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 0.9em;
+	margin: 0.5em 0;
+}
+
+.episode-links {
+	color: rgba(255, 255, 255, 0.5);
+	font-size: 0.85em;
+	margin-top: 0.5em;
+}
+
+.episode-links a {
+	color: #4a9eff;
+	text-decoration: none;
+}
+
+.episode-links a:hover {
+	text-decoration: underline;
+}
