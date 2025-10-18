@@ -1664,7 +1664,7 @@ input, select, textarea {
 }
 
 .podcast-episodes li {
-	margin-bottom: 1.5em;
+	margin-bottom: 2em;  /* was 1.5em */
 }
 
 .episode-link {
@@ -1677,18 +1677,22 @@ input, select, textarea {
 	transition: all 0.3s ease;
 }
 
-.episode-link:hover {
-	background: rgba(255, 255, 255, 0.05);
-	border-color: rgba(255, 255, 255, 0.4);
-	transform: translateX(5px);
+.episode-link {
+	display: flex;
+	align-items: center;
+	text-decoration: none;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	padding: 1em;  /* was 0.75em */
+	border-radius: 4px;
+	transition: all 0.3s ease;
 }
 
 .episode-thumbnail {
-	width: 120px;
-	height: 90px;
+	width: 180px;
+	height: 135px;
 	object-fit: cover;
 	border-radius: 4px;
-	margin-right: 1em;
+	margin-right: 1.25em;
 	flex-shrink: 0;
 }
 
