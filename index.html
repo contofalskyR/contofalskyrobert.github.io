@@ -1,514 +1,879 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <!--
-	Dimension by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  robertcontofalsky.com — v2
+  Plain HTML + CSS + a little vanilla JS. No build step, no frameworks.
+
+  HOW TO EDIT THIS FILE
+  ─────────────────────
+  · Colors and fonts live in the :root block just below — change once, applies everywhere.
+  · Every section is an <article> inside <main>. Content is plain HTML.
+  · To add a research project: copy any <div class="card"> block and edit the text.
+  · To add an episode: copy any <li> in the "all-episodes" list and edit number/title/links.
+  · The footer "Updated …" line writes itself from your latest git commit message,
+    so commit like: git commit -m "Added CLC2026 talk video" — that text becomes the site's
+    changelog. No need to touch the footer ever again.
 -->
-<html>
-	<head>
-		<title>Robert Contofalsky</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<link rel="icon" type="image/png" href="tree.png">
-	</head>
-	<body class="is-preload">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Robert Contofalsky</title>
+  <meta name="description" content="Robert Contofalsky — Cognitive Science Ph.D. student at Rutgers University. Perception, feature learning, robotics. Host of the No Prereqs podcast.">
+  <link rel="icon" type="image/png" href="tree.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Palette & type — edit here ─────────────────────────────── */
+    :root {
+      --bg:        #15161A;   /* page background        */
+      --panel:     #17181C;   /* open section surface   */
+      --card:      #131418;   /* project card surface   */
+      --line:      #34363C;   /* borders                */
+      --line-soft: #26272C;   /* row separators         */
+      --ink:       #E9E5DC;   /* body text (cream)      */
+      --bright:    #FBF7EC;   /* headings               */
+      --muted:     #8E8B84;   /* secondary text         */
+      --red:       #C13B2E;   /* accent (fills, rules)  */
+      --red-text:  #DE5B4C;   /* accent for small text  */
+      --red-tint:  rgba(193,59,46,.08);
+      --sans: 'Source Sans 3', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    /* ── Base ───────────────────────────────────────────────────── */
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-height: 100vh;
+      background: radial-gradient(130% 100% at 50% 0%, #1C1D22 0%, var(--bg) 55%, #101114 100%) fixed;
+      color: var(--ink);
+      font: 400 16px/1.65 var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--red-text); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--bright); }
+    p a, li a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(222,91,76,.4); }
+    ::selection { background: var(--red); color: var(--bright); }
+    :focus-visible { outline: 2px solid var(--red-text); outline-offset: 3px; }
+    img { max-width: 100%; }
 
-				<!-- Header -->
-					<header id="header">
-						<div class="logo">
-							<span class="icon fa-gem"></span>
-						</div>
-						<div class="content">
-							<div class="inner">
-								<h1>Robert Contofalsky</h1>
-								<p>2nd Year Cognitive Science Ph.D. Student at Rutgers University.</p>
-							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a href="#intro">About Me</a></li>
-								<li><a href="#work">Research</a></li>
-								<li><a href="#about">Writing Samples</a></li>
-								<li><a href="#presentations">Presentations</a></li>
-								<li><a href="#podcast">Podcast</a></li>
-								<li><a href="Contofalsky_R_Aacademic_CV.pdf">CV</a></li>
-							</ul>
-						</nav>
-					</header>
+    /* ── Landing ────────────────────────────────────────────────── */
+    #header {
+      min-height: 88vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 64px 24px 40px;
+    }
+    .monogram {
+      width: 46px; height: 46px; border: 1px solid #45474E;
+      display: grid; place-items: center;
+      font: 300 14px var(--sans); letter-spacing: .2em; padding-left: .2em;
+    }
+    #header h1 {
+      margin: 30px 0 0; font-size: clamp(24px, 5vw, 34px); font-weight: 300;
+      letter-spacing: .22em; padding-left: .22em; text-transform: uppercase; color: var(--bright);
+    }
+    .rule { width: 56px; height: 1px; background: #45474E; margin: 24px 0; }
+    .tagline { margin: 0; max-width: 480px; font-weight: 300; font-size: 16px; color: var(--muted); }
+    #nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 28px; margin-top: 38px; }
+    #nav a {
+      font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--muted); padding-bottom: 6px; border-bottom: 2px solid transparent;
+    }
+    #nav a:hover { color: var(--ink); border-bottom-color: var(--line); }
 
-				<!-- Main -->
-					<div id="main">
-						<!-- Intro -->
-							<article id="intro">
-								<h2 class="major">About Me</h2>
-								<span class="image main"><img src="Smilewithroll.jpg" alt="" /></span>
-								<h3 class="major">Research Interests</h3>
-								<p>I am 2nd year Cognitive Science Ph.D. Student, supervised by <a href="https://ruccs.rutgers.edu/jacob">Prof. Jacob Feldman</a>. Together we will be studying the nature of perception by running categorization experiments. These experiments are focused on how feature learning influences categorization, and what is the relationship between mutual information and categorization? In addition to focusing on the human-side of learning, I will be applying this work to the field robotics. Indeed, this work does not only apply to humans, and the first two years of my Ph.D. will be focusing on how human feature learning can be applied to the field of Robotics, as it is a key component to giving Robots "human-like" vision. More details about my research can be found in my "Research" section.</p>
-								<h3 class="major">Personal Interests</h3>
-								<p>Aside from research, my passions lay in exercise, reading, music exploration, and podcasting. I lift weights no less than six-times a week, run at least once a week, and if I can, practice Brazilian Jiu-Jitsu. Fitness is a central part of routine, and I find it a necessary component of my lifestyle. As for my reading habits, I try to read at least 1 scientific paper a day and read parts of book chapters before bed. I did not dedicate much time to reading until my later teenage years and so I spend more time reading to make-up for this (perceived) deficit. As for my passion for music, it is virtually endless, and I love to expand my knowledge of genres & subgenres in addition to seeing live music as much as possible! Lastly, I run my own <a href="https://www.youtube.com/@R--Academy/videos">academic podcast</a> where I interview experts (mostly professors right now) in various fields. Not only do I love preparing for the covnersations I record, but I do love the artistic component behind video-editing and creating my own digital presence. I go into more detail about the motivations behind why I created the podcast in my "Podcast" section.</p>
-								<h3 class="major">Getting in touch</h3>
-								<p></p>I am currently living in New Brunswick, New Jersey, and you can email me at <a href="mailto:robert.contofalsky@rutgers.edu">robert.contofalsky@rutgers.edu</a>. Should you opt-in for an in-person meet up you can find me at the <a href="https://psych.rutgers.edu/contact-us"> Rutgers Psychology Building</a> where my office is located at room A134!</a></p>
-								<p>You can also find me on <a href="https://orcid.org/0009-0005-4907-4144">ORCID</a> for a complete list of my publications and research activities.</p>
-							</article>
-							<!-- Podcast -->
-							<article id="podcast">
-							<h2 class="major">R-Academy Podcast</h2>
+    /* ── Panels ─────────────────────────────────────────────────── */
+    #main { max-width: 860px; margin: 0 auto; padding: 0 20px 48px; width: 100%; }
+    #main article {
+      display: none; border: 1px solid var(--line); background: var(--panel);
+      padding: clamp(24px, 5vw, 44px);
+    }
+    #main article.open { display: block; animation: panelIn .35s ease both; }
+    @keyframes panelIn { from { opacity: 0; transform: translateY(10px); } }
+    body.is-open #header { display: none; }
+    body.is-open #main { padding-top: 48px; }
 
-							<p><p>The R-Academy podcast democratizes information through open conversations with leading experts. This podcast explores psychology, cognitive science, neuroscience, physics, philosophy, pain research, consciousness, and the human condition. Host Robert Contofalsky believes that access to information without barriers or paywalls is essential for society's progress. Access to information is a net positive on human outcome<sup><a href="#Footnote1">1</a></sup>, and I would love nothing more than to contribute to this trend.</p>
+    .panel-head { display: flex; align-items: baseline; gap: 18px; margin-bottom: 26px; }
+    .panel-head h2 {
+      margin: 0; flex: 1; font-size: 19px; font-weight: 600; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--bright);
+      border-bottom: 1px solid var(--red); padding-bottom: 10px;
+    }
+    .hint { font: 400 10px var(--mono); color: rgba(142,139,132,.6); }
+    .close {
+      flex: none; width: 34px; height: 34px; border: 1px solid var(--line);
+      display: grid; place-items: center; color: var(--muted);
+      font: 300 18px/1 var(--sans); cursor: pointer; background: none;
+      transition: border-color .15s, color .15s;
+    }
+    .close:hover { border-color: var(--red); color: var(--bright); }
 
-							<p>Listen on your preferred platform:</p>
+    h3 { font-size: 16px; font-weight: 600; color: var(--bright); margin: 28px 0 8px; }
+    #main p { color: var(--ink); font-weight: 300; }
+    #main p, #main ul { font-size: 15.5px; }
+    .group-label {
+      font: 500 10px var(--mono); letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted); margin: 30px 0 12px;
+    }
+    .group-label::before { content: "// "; color: var(--red-text); }
+    .group-label:first-of-type { margin-top: 0; }
 
-							<div class="podcast-platforms">
-								<a href="https://podcasts.apple.com/us/podcast/r-academy/id1696902521" target="_blank">
-									<img src="badge.svg" alt="Apple Podcasts">
-								</a>
-								<a href="https://open.spotify.com/show/0dU9CjrGj3yCQdw7raVAq3" target="_blank">
-									<img src="Spotify_Full_Logo_RGB_Black.png" alt="Spotify">
-								</a>
-								<a href="https://www.youtube.com/@R--Academy/featured" target="_blank">
-									<img src="podcast-badge-youtube.jpeg" alt="YouTube">
-								</a>
-							</div>
+    /* ── Project cards ──────────────────────────────────────────── */
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card {
+      border: 1px solid var(--line); background: var(--card); padding: 16px 18px;
+      display: flex; flex-direction: column; gap: 8px; transition: border-color .15s;
+    }
+    .card:hover { border-color: rgba(193,59,46,.55); }
+    .card-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .card-title { font-size: 15px; font-weight: 600; color: var(--bright); line-height: 1.4; }
+    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.55; font-weight: 400; }
+    .tag {
+      flex: none; font: 400 9px var(--mono); letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); border: 1px solid var(--line); padding: 3px 7px; white-space: nowrap;
+    }
+    .tag.red { color: var(--red-text); border-color: rgba(193,59,46,.5); background: var(--red-tint); }
+    .links { display: flex; flex-wrap: wrap; gap: 14px; font: 400 11.5px var(--mono); margin-top: 2px; }
+    .links a { text-decoration: none; }
 
-							<p>To support this podcast:</p>
-							<ul>
-								<li>Subscribe on <a href="https://www.youtube.com/@R--Academy/featured">YouTube</a>, <a href="https://open.spotify.com/show/0dU9CjrGj3yCQdw7raVAq3">Spotify</a>, or <a href="https://podcasts.apple.com/us/podcast/r-academy/id1696902521">Apple Podcasts</a></li>
-								<li>Share episodes with colleagues, friends, and family interested in these topics</li>
-							</ul>
+    /* ── List rows (episodes, presentations) ────────────────────── */
+    ul.rows { list-style: none; margin: 0; padding: 0; }
+    ul.rows li {
+      display: grid; grid-template-columns: 40px 1fr auto; gap: 14px; align-items: center;
+      padding: 14px 4px; border-bottom: 1px solid var(--line-soft);
+    }
+    ul.rows li:hover { background: rgba(255,255,255,.02); }
+    .num { font: 400 11px var(--mono); color: var(--muted); }
+    .row-title { font-size: 14.5px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+    .row-meta { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+    .row-links { display: flex; gap: 12px; font: 400 10.5px var(--mono); }
+    .row-links a { text-decoration: none; }
 
-								<h3 class="major">Sample Conversations</h3>
-								<ul class="podcast-episodes">	
+    /* Presentations */
+    ul.talks { list-style: none; margin: 0; padding: 0; }
+    ul.talks li { padding: 14px 0; border-bottom: 1px solid var(--line-soft); font-size: 14.5px; font-weight: 300; }
+    ul.talks li strong { color: var(--bright); font-weight: 600; }
+    ul.talks li em { color: var(--muted); font-style: normal; }
+    .venue { color: var(--muted); font-size: 13px; }
 
-									<li>
-										<a href="https://youtu.be/CPyPfZMd3TE?si=HgjufPFq9V4wHdAJ" class="episode-link">
-											<img src="https://img.youtube.com/vi/CPyPfZMd3TE/maxresdefault.jpg" alt="Steven Pinker Episode" class="episode-thumbnail">
-											<span class="episode-title">Common Knowledge & Social Coordination with Dr. Steven Pinker</span>
-										</a>
-									</li>
+    /* ── Podcast extras ─────────────────────────────────────────── */
+    .platforms { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 6px; }
+    .platforms a {
+      font: 400 11px var(--mono); letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid var(--line); padding: 8px 14px; color: var(--ink);
+      transition: border-color .15s, color .15s; text-decoration: none;
+    }
+    .platforms a:hover { border-color: var(--red); color: var(--bright); }
+    .feature { display: flex; border: 1px solid var(--line); background: var(--card); margin: 18px 0 8px; transition: border-color .15s; }
+    .feature:hover { border-color: rgba(193,59,46,.55); }
+    .feature img { width: 220px; object-fit: cover; flex: none; }
+    .feature-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 7px; justify-content: center; }
+    .kicker { font: 400 10px var(--mono); letter-spacing: .14em; color: var(--red-text); text-transform: uppercase; white-space: nowrap; flex: none; }
+    .feature-title { font-size: 17px; font-weight: 600; color: var(--bright); line-height: 1.35; }
+    .upnext {
+      display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+      border: 1px dashed var(--line); padding: 12px 16px; margin-top: 14px; font-size: 13px; color: var(--muted);
+    }
+    blockquote { border-left: 2px solid var(--line); margin: 12px 0 0; padding: 4px 0 4px 18px; color: var(--muted); font-size: 14px; font-weight: 300; }
 
-									<li>
-										<a href="https://youtu.be/_IG8B-5hvck" class="episode-link">
-											<img src="https://img.youtube.com/vi/_IG8B-5hvck/maxresdefault.jpg" alt="Adrian Bejan Episode" class="episode-thumbnail">
-											<span class="episode-title">Constructal Law & Thermodynamics with Dr. Adrian Bejan</span>
-										</a>
-									</li>
-									<li>
-										<a href="https://youtu.be/nvDEI_ALHus" class="episode-link">
-											<img src="https://img.youtube.com/vi/nvDEI_ALHus/maxresdefault.jpg" alt="Soud Al-Kharusi Episode" class="episode-thumbnail">
-											<span class="episode-title">Astrophysics & Neutrinos with Dr. Soud Al-Kharusi</span>
-										</a>
-									</li>
-									<li>
-										<a href="https://www.youtube.com/watch?v=zmDH3GS8uNo" class="episode-link">
-											<img src="https://img.youtube.com/vi/zmDH3GS8uNo/maxresdefault.jpg" alt="Stevan Harnad Episode" class="episode-thumbnail">
-											<span class="episode-title">Cognitive Science, Consciousness & ChatGPT with Dr. Stevan Harnad</span>
-										</a>
-									</li>
-								</ul>
+    /* ── Form ───────────────────────────────────────────────────── */
+    form .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+    form .field-full { grid-column: 1 / -1; }
+    label { display: block; font: 500 10px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    input, textarea {
+      width: 100%; background: var(--card); border: 1px solid var(--line); color: var(--ink);
+      font: 300 15px var(--sans); padding: 10px 12px; transition: border-color .15s;
+    }
+    input:focus, textarea:focus { outline: none; border-color: var(--red); }
+    button[type=submit] {
+      white-space: nowrap;
+      font: 500 11px var(--mono); letter-spacing: .14em; text-transform: uppercase;
+      background: none; border: 1px solid var(--red); color: var(--red-text);
+      padding: 11px 22px; cursor: pointer; transition: background .15s, color .15s;
+    }
+    button[type=submit]:hover { background: var(--red); color: var(--bright); }
 
-								<h3 class="major">Upcoming Episodes</h3>
-								<ul>
-										<li>1st Amendment Litigation with Jenin Younes <em> Scheduled for August 2026</em>
-										<li>Abstract Reasoning with Amritpal Singh<em> Currently Editing</em> </li>
-										<li>Cognitive Science with Tania Lombrozzo<em> Scheduled for November 2026</em></li>
-			
-								</ul>
-								
-								<h3 class="major">All Episodes</h3>
+    /* ── About ──────────────────────────────────────────────────── */
+    .portrait { width: 100%; max-height: 340px; object-fit: cover; object-position: 50% 22%; border: 1px solid var(--line); filter: saturate(.94); }
 
-								<ul class="all-episodes-list">
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      max-width: 860px; margin: 0 auto; padding: 22px 20px 30px;
+      display: flex; justify-content: space-between; align-items: baseline; gap: 24px; flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+    }
+    footer .copy { font-size: 12.5px; color: var(--muted); }
+    .updated { text-align: right; }
+    .updated .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--red); margin-right: 7px; }
+    #upd-line { font-size: 12.5px; color: var(--muted); }
+    #upd-line b { color: var(--ink); font-weight: 400; }
+    .upd-note { font: 400 10px var(--mono); color: rgba(142,139,132,.55); margin-top: 4px; }
 
-									<!--
-									<li>
-										<a href="" class="full-episode-link">
-											<h4>Jenin Younes: 1st Amendment Litigation</h4>
-											<p class="episode-meta">Jenin Younes, National Legal Direction at ADC</p>
-											<p class="episode-links">
-												<a href="">YouTube</a> | 
-												<a href="">Spotify</a> | 
-												<a href="">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
-									-->
+    .back { display: inline-block; margin-top: 22px; font-size: 13.5px; }
 
-									<li>
-										<a href="https://www.youtube.com/watch?v=-fn3GnLIZdQ" class="full-episode-link">
-											<h4>Trevor Fortner: High Stakes Decision-Making</h4>
-											<p class="episode-meta">Trevor Fortner, EverydaySpy & EverydayWar</p>
-											<p class="episode-links">
-												<a href="https://www.youtube.com/watch?v=-fn3GnLIZdQ">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/52pmK0EDF5tHxRSYDGw77f?si=xe7_U_0YSIOUu3yM-C2VRQ&nd=1&dlsi=d06c10545e284198">Spotify</a> | 
-												<a href="https://podcasts.apple.com/us/podcast/trevor-fortner-high-stakes-decision-making-r-academy-15/id1696902521?i=1000765947129">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+    /* ── No Prereqs panel ───────────────────────────────────────── */
+    .npbtn {
+      display: inline-flex; align-items: center; gap: 11px; padding: 13px 24px;
+      border: 1px solid var(--line); color: var(--ink); text-decoration: none;
+      font-size: 11px; font-weight: 400; letter-spacing: .28em; text-transform: uppercase;
+      transition: border-color .25s, background .25s;
+    }
+    .npbtn { white-space: nowrap; }
+    .npbtn:hover { border-color: var(--red); background: var(--red-tint); color: var(--ink); }
+    .npbtn .tri { width: 0; height: 0; border-left: 7px solid var(--red); border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+    .nprule { display: flex; align-items: center; gap: 18px; margin: 44px 0 24px; }
+    .nprule .dash { width: 34px; height: 2px; background: var(--red); flex: none; }
+    .nprule h3 { margin: 0; font-size: 12px; font-weight: 400; letter-spacing: .45em; text-transform: uppercase; color: var(--muted); }
+    .nprule .ext { flex: 1; height: 1px; background: var(--line); }
+    #podcast .row-meta { letter-spacing: .22em; text-transform: uppercase; font-size: 10px; }
+    .arch { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 13px; }
+    details.eplist { margin-top: 22px; text-align: center; }
+    details.eplist summary { list-style: none; display: inline-block; cursor: pointer; }
+    details.eplist summary::-webkit-details-marker { display: none; }
+    details.eplist ul { text-align: left; margin-top: 16px; }
+    .gwall { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; column-gap: 60px; row-gap: 32px; text-align: center; padding: 10px 0 6px; }
+    .gwall .gname { font-size: 19px; font-weight: 300; letter-spacing: .22em; text-transform: uppercase; color: var(--ink); }
+    .gwall .gfield { margin-top: 9px; font-size: 9.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+    .npcard { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 30px; border: 1px solid var(--line); background: var(--card); padding: 22px 20px 20px; min-height: 270px; text-decoration: none; transition: border-color .25s, transform .25s; }
+    .npcard:hover { border-color: var(--red); transform: translateY(-4px); color: var(--ink); }
+    .npmk { font-weight: 200; font-size: 24px; letter-spacing: .02em; color: var(--ink); line-height: 1; }
+    .npmk-sub { margin-top: 11px; font: 400 8.5px var(--mono); letter-spacing: .22em; color: var(--ink); }
+    .npmk-sub em { display: block; width: 74px; height: 2px; background: var(--red); margin-top: 6px; }
+    .npcard .meta { position: relative; padding-right: 102px; min-height: 134px; }
+    .npcard .n { font: 400 10px var(--mono); letter-spacing: .3em; color: var(--muted); }
+    .npcard .g { font-size: 16.5px; font-weight: 300; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); margin-top: 9px; line-height: 1.25; border-bottom: 1px solid var(--line-soft); padding-bottom: 12px; }
+    .npcard .t { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 12px; line-height: 1.7; }
+    .npcard .w { font-size: 8px; letter-spacing: .25em; text-transform: uppercase; color: rgba(142,139,132,.7); margin-top: 18px; }
+    .tick { width: 104px; background: #FBF7EC; color: #17181C; padding: 8px 8px 12px; box-shadow: 0 14px 28px rgba(0,0,0,.45); position: relative; }
+    .tick::after { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 8px; background-image: url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2714%27 height=%278%27%3E%3Cpath d=%27M0 0 L7 8 L14 0 Z%27 fill=%27%23FBF7EC%27/%3E%3C/svg%3E'); background-repeat: repeat-x; background-size: 14px 8px; }
+    .npcard .tick { position: absolute; right: 0; top: -2px; width: 90px; padding: 7px 7px 10px; }
+    .npcard .qr { width: 58px; height: 58px; margin-top: 7px; }
+    .npcard .qr img, .npcard .qr canvas { width: 58px !important; height: 58px !important; }
+    .npcard .tep-i { font-size: 8.5px; padding: 3px 2px; }
+    .npcard .tick-scan { margin-top: 7px; }
+    .tep-o { border: 2px solid var(--red); border-radius: 6px; padding: 2px; }
+    .tep-i { border: 1px solid var(--red); border-radius: 3px; padding: 4px 2px; text-align: center; font: 700 9px var(--mono); letter-spacing: .25em; text-indent: .25em; color: var(--red); }
+    .qr { width: 74px; height: 74px; margin: 9px auto 0; display: flex; align-items: center; justify-content: center; }
+    .qr img, .qr canvas { width: 74px !important; height: 74px !important; image-rendering: pixelated; }
+    .tick-scan { margin-top: 9px; text-align: center; font: 500 7px var(--mono); letter-spacing: .18em; text-indent: .18em; color: #17181C; text-transform: uppercase; white-space: nowrap; }
 
-									<li>
-										<a href="https://youtu.be/F6w8GxcFmOU?si=7FVO2gR8TVQsbOyo" class="full-episode-link">
-											<h4>Elkhonon Goldberg: Brain Organization & Neuropsychology</h4>
-											<p class="episode-meta">Dr. Elkhonon Goldberg, ABPP. Direct of The Luria Institute</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/F6w8GxcFmOU?si=7FVO2gR8TVQsbOyo">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/1CbzL77WjH6vDTzw0nJc3V?si=cQMZ-WZxQ7-NYXomyHiVMQ">Spotify</a> | 
-												<a href="https://podcasts.apple.com/us/podcast/elkhonon-goldberg-brain-organization-neuropsychology/id1696902521?i=1000750534125">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+    /* ── Small screens / no JS / reduced motion ─────────────────── */
+    @media (max-width: 640px) {
+      .cards { grid-template-columns: 1fr; }
+      .feature { flex-direction: column; }
+      .feature img { width: 100%; }
+      .hint { display: none; }
+      ul.rows li { grid-template-columns: 28px 1fr; }
+      .row-links { grid-column: 2; }
+      form .fields { grid-template-columns: 1fr; }
+      #header { min-height: 70vh; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #main article.open { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+  <noscript>
+    <style>
+      #main article { display: block !important; margin-bottom: 28px; }
+      .close, .hint { display: none !important; }
+      .updated { display: none; }
+    </style>
+  </noscript>
+</head>
+<body>
 
-									<li>
-										<a href="https://youtu.be/T8_O-2ClE_k" class="full-episode-link">
-											<h4>Adrian Bejan: Constructal Law, Social Systems & Time | Round 3</h4>
-											<p class="episode-meta">Dr. Adrian Bejan - J.A. Jones Distinguished Professor of Mechanical Engineering at Duke University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/T8_O-2ClE_k">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/6phMuwk4wiIGVWC7VeIz6V?si=5ROHqZ2rSdGe-QcTOUP2KA">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/adrian-bejan-constructal-law-social-systems-time-r/id1696902521?i=1000737348514">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
-									
-									<li>
-										<a href="https://youtu.be/CPyPfZMd3TE?si=HgjufPFq9V4wHdAJ" class="full-episode-link">
-											<h4>Steven Pinker: Common KNoweldge & Social Coordination</h4>
-											<p class="episode-meta">Dr. Steven Pinker – Johnstone Family Professor of Psychology at Harvard University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/CPyPfZMd3TE?si=HgjufPFq9V4wHdAJ">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/3VYmoc1CA6zHQqoJLjElUU?si=j_413CDgTauJyTkG5noLBw">Spotify</a> | 
-												<a href="https://podcasts.apple.com/us/podcast/steven-pinker-common-knowledge-social-coordination/id1696902521?i=1000732564666">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+  <!-- ═══════════ LANDING ═══════════ -->
+  <header id="header">
+    <div class="monogram" aria-hidden="true">RC</div>
+    <h1>Robert Contofalsky</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="tagline">Cognitive Science Ph.D. student at Rutgers University.<br>Host of the <span style="color:var(--red-text)">No Prereqs</span> podcast.</p>
+    <nav id="nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#writing">Writing</a>
+      <a href="#presentations">Presentations</a>
+      <a href="#podcast">Podcast</a>
+      <a href="Contofalsky_R_Aacademic_CV.pdf" target="_blank" rel="noopener">CV &darr;</a>
+    </nav>
+  </header>
 
-									<li>
-										<a href="https://youtu.be/_IG8B-5hvck?si=54lDLf31QahPVQs3" class="full-episode-link">
-											<h4>Adrian Bejan: How Physics Explains Life & Civilization | Round 2</h4>
-											<p class="episode-meta">Dr. Adrian Bejan - J.A. Jones Distinguished Professor of Mechanical Engineering at Duke University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/_IG8B-5hvck?si=54lDLf31QahPVQs3">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/7JrkIt3d0zS2h79NZfFBEs?si=z6zPMzqgTSOgxDm6B_Yz8A">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/adrian-bejan-how-physics-explains-life-civilization/id1696902521?i=1000728720747">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+  <main id="main">
 
-									<li>
-										<a href="https://youtu.be/_IG8B-5hvck" class="full-episode-link">
-											<h4>Adrian Bejan: Constructal Law & Thermodynamics | Round 1</h4>
-											<p class="episode-meta">Dr. Adrian Bejan - J.A. Jones Distinguished Professor of Mechanical Engineering at Duke University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/_IG8B-5hvck">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/5qXnqXYlgUlQW0ZMUopDqe?si=rm2QCWe6TuyMlNHYoqZNvQ">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/adrian-bejan-constructal-law-thermodynamics-r-academy-10/id1696902521?i=1000728721778">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
-									
-									<li>
-										<a href="https://youtu.be/v0Hvq8e2e40" class="full-episode-link">
-											<h4>Eric Hehman: Prejudice & Social Psychology</h4>
-											<p class="episode-meta">Dr. Eric Hehman - Associate Professor of Psychology at McGill University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/v0Hvq8e2e40">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/0CnpHyERbpnHmAXMBTGkQ5?si=FycgDjBWRFWhAfnXfb0peA">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/eric-hehman-prejudice-social-psychology-r-academy-9/id1696902521?i=1000698892277">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
-									
-									<li>
-										<a href="https://youtu.be/nvDEI_ALHus" class="full-episode-link">
-											<h4>Soud Al-Kharusi Astrophysics & Neutrinos</h4>
-											<p class="episode-meta">Dr. Soud Al-Kharusi - Post-Doctoral Researcher at Stanford University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/nvDEI_ALHus">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/6czGqez4B35AxMX0levBEu?si=-VmvxezSS_ye6Ol_bMMh1g">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/soud-al-kharusi-astrophysics-neutrinos-fundamental/id1696902521?i=1000680875364">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
-									
-									<li>
-										<a href="https://youtu.be/fnLnv4z3Iuo?si=jnkKugvs6T6twB1y" class="full-episode-link">
-											<h4>Aleksandrina Skvortsova: Placebo & Nocebo Effects</h4>
-											<p class="episode-meta">Dr. Aleksandrina Skvortsova - Professor of Psychology at Leiden University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/fnLnv4z3Iuo?si=jnkKugvs6T6twB1y">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/4ZZXaY5ENc6zM7IXbVGwTv?si=9zCT650kTPSyb6gSQTYa1w">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/aleksandrina-skvortsova-placebo-nocebo-effects-r-academy/id1696902521?i=1000677010633">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+    <!-- ═══════════ ABOUT ═══════════ -->
+    <article id="about" tabindex="-1" aria-labelledby="about-h">
+      <div class="panel-head">
+        <h2 id="about-h">About</h2>
+        <span class="hint">esc closes &middot; &larr; &rarr; between sections</span>
+        <button class="close" aria-label="Close section">&times;</button>
+      </div>
+      <img class="portrait" src="https://www.robertcontofalsky.com/Smilewithroll.jpg" alt="Robert Contofalsky">
+      <h3>Research interests</h3>
+      <p>I am a 2nd year Cognitive Science Ph.D. student, supervised by <a href="https://ruccs.rutgers.edu/jacob">Prof. Jacob Feldman</a>. Together we will be studying the nature of perception by running categorization experiments. These experiments are focused on how feature learning influences categorization, and what is the relationship between mutual information and categorization? In addition to focusing on the human-side of learning, I will be applying this work to the field of robotics. Indeed, this work does not only apply to humans, and the first two years of my Ph.D. will be focusing on how human feature learning can be applied to the field of Robotics, as it is a key component to giving Robots "human-like" vision. More details can be found in the <a href="#research">Research</a> section.</p>
+      <h3>Personal interests</h3>
+      <p>Aside from research, my passions lay in exercise, reading, music exploration, and podcasting. I lift weights no less than six times a week, run at least once a week, and if I can, practice Brazilian Jiu-Jitsu. Fitness is a central part of my routine, and I find it a necessary component of my lifestyle. As for my reading habits, I try to read at least 1 scientific paper a day and read parts of book chapters before bed. I did not dedicate much time to reading until my later teenage years and so I spend more time reading to make up for this (perceived) deficit. As for my passion for music, it is virtually endless, and I love to expand my knowledge of genres &amp; subgenres in addition to seeing live music as much as possible! Lastly, I run my own <a href="#podcast">academic podcast</a> where I interview experts in various fields. Not only do I love preparing for the conversations I record, but I love the artistic component behind video-editing and creating my own digital presence.</p>
+      <h3>Getting in touch</h3>
+      <p>I am currently living in New Brunswick, New Jersey, and you can email me at <a href="mailto:robert.contofalsky@rutgers.edu">robert.contofalsky@rutgers.edu</a>. Should you opt in for an in-person meet-up, you can find me at the <a href="https://psych.rutgers.edu/contact-us">Rutgers Psychology Building</a>, where my office is located at room A134!</p>
+      <p>You can also find me on <a href="https://orcid.org/0009-0005-4907-4144">ORCID</a> for a complete list of my publications and research activities.</p>
+    </article>
 
-									<li>
-										<a href="https://www.youtube.com/watch?v=zmDH3GS8uNo" class="full-episode-link">
-											<h4>Stevan Harnad: Cognitive Science, Consciousness & ChatGPT</h4>
-											<p class="episode-meta">Dr. Stevan Harnad - Professor of Psychology at Université du Québec à Montréal</p>
-											<p class="episode-links">
-												<a href="https://www.youtube.com/watch?v=zmDH3GS8uNo">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/6ljQiDeuGYI7Vo2fLggWGD?si=-5h8e3I0TAupUAaCWBVRYQ">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/stevan-harnad-cognitive-science-consciousness-chatgpt/id1696902521?i=1000670792688">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+    <!-- ═══════════ RESEARCH ═══════════
+         To add a project: copy a <div class="card"> block below and edit.
+         Tags: class="tag" (gray) or class="tag red" (highlighted). -->
+    <article id="research" tabindex="-1" aria-labelledby="research-h">
+      <div class="panel-head">
+        <h2 id="research-h">Research</h2>
+        <span class="hint">esc closes &middot; &larr; &rarr; between sections</span>
+        <button class="close" aria-label="Close section">&times;</button>
+      </div>
 
-									<li>
-										<a href="https://youtu.be/wV_gAvz-YeY?si=un70w4kh2cb10VD0" class="full-episode-link">
-											<h4>Laura Wagner: Language & The Mind</h4>
-											<p class="episode-meta">Dr. Laura Wagner – Professor of Linguistics at The Ohio State University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/wV_gAvz-YeY?si=un70w4kh2cb10VD0">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/2rgPhaBnz2gwK5m1tIoBei?si=FTDQfKwiQ-Sr2PU8EDELbA">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/laura-wagner-language-the-mind-r-academy-episode-5/id1696902521?i=1000643210323">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+      <div class="group-label">Graduate — Feldman Lab, Rutgers</div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Beyond Mutual Information: Does Utility Affect Categorical Perception?</div>
+            <span class="tag red">Current</span>
+          </div>
+          <div class="card-desc">Categorization experiments in a novel 2D feature space, with Prof. Jacob Feldman.</div>
+          <div class="links">
+            <a href="ContofalskyR_CogSci_ForumPoster-FINAL.pdf" target="_blank" rel="noopener">[poster]</a>
+            <a href="https://youtu.be/D9xxOfyw63I?si=MdgQDWV3kCdyNERW" target="_blank" rel="noopener">[talk video]</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Mutual Information &amp; Categorical Perception — Replication</div>
+            <span class="tag">In progress</span>
+          </div>
+          <div class="card-desc">Replicating the 2021 finding that discrimination improves in proportion to feature&ndash;category mutual information.</div>
+          <div class="links">
+            <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8726593/" target="_blank" rel="noopener">[2021 study]</a>
+          </div>
+        </div>
+      </div>
 
-									<li>
-										<a href="https://youtu.be/w1Ue4hQ6VD0?si=LQv60-hDr7XtHMOc" class="full-episode-link">
-											<h4>Richard Koestner: Human Motivation & Personality</h4>
-											<p class="episode-meta">Dr. Richard Koestner – Professor of Psychology at McGill University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/w1Ue4hQ6VD0?si=LQv60-hDr7XtHMOc">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/6hiYagSfVwxzHmtZCo2BS1?si=THaZampMS22X55-dLAmVOw">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/richard-koestner-human-motivation-personality-r-academy/id1696902521?i=1000629933453">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+      <div class="group-label">Robotics — SOCRATES Fellowship</div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Robotic Wound Care System</div>
+            <span class="tag red">Patent pending</span>
+          </div>
+          <div class="card-desc">SAM3-based wound detection, hybrid force&ndash;position control, and a novel pre-dab priming mechanism. RU Docket #2026-114.</div>
+          <div class="links">
+            <a href="https://patents.rutgers.edu" target="_blank" rel="noopener">[patent]</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">SC-IWCR — Waste Classification Robot</div>
+            <span class="tag">2026</span>
+          </div>
+          <div class="card-desc">Fine-tuned GroundedSAM for recyclable segmentation; contributed to the grasp dataset generation pipeline.</div>
+          <div class="links">
+            <a href="https://github.com/JoeDoerr/ExpectedGrasps" target="_blank" rel="noopener">[code]</a>
+            <a href="SC_Robotics_FinalProject_Group14 (1)-1.pdf" target="_blank" rel="noopener">[paper]</a>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:13.5px; color:var(--muted); margin-top:12px">Completed the Graduate Certificate in Socially Cognizant Robotics, January 2026. <a href="Socially Cognizant Robotics certificate Robert Contofalsky.pdf" target="_blank" rel="noopener" style="font-family:var(--mono); font-size:11.5px; text-decoration:none">[certificate]</a></p>
 
-									<li>
-										<a href="https://youtu.be/vBIhEodrF3o?si=YjEwNl1K1wE0sPEU" class="full-episode-link">
-											<h4>John C. Gibbs: Moral Psychology & Rehabilitating Juvenile Delinquency</h4>
-											<p class="episode-meta">Dr. John C. Gibbs – Professor of Psychology at The Ohio State University</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/vBIhEodrF3o?si=YjEwNl1K1wE0sPEU">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/6hFPRq6Fu8TL4VmcFWqX7U?si=0duisyEBQpSSeNd888RpgQ">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/john-c-gibbs-moral-psychology-rehabilitating-juvenile/id1696902521?i=1000636842558">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+      <div class="group-label">Published</div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">Nocebo Hyperalgesia &amp; CCK-B Receptors</div>
+            <span class="tag red">Nat. Comms 2026</span>
+          </div>
+          <div class="card-desc">Skvortsova, Carrier, Contofalsky &amp; Lima. Began as my senior thesis in the Mogil Lab at McGill.</div>
+          <div class="links">
+            <a href="https://doi.org/10.1038/s41467-026-73266-y" target="_blank" rel="noopener">[doi]</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="card-title">COVID-19, Need Satisfaction &amp; Depressive Symptoms</div>
+            <span class="tag">MJHB 2021</span>
+          </div>
+          <div class="card-desc">6-wave longitudinal study (n&nbsp;=&nbsp;379) from a Self-Determination Theory lens, with Dr. Richard Koestner.</div>
+          <div class="links">
+            <a href="Publication 1.pdf" target="_blank" rel="noopener">[pdf]</a>
+          </div>
+        </div>
+      </div>
+      <!-- ADD A PROJECT: copy any card above into one of the .cards grids and edit the text. -->
 
-									<li>
-										<a href="https://youtu.be/r5uqx3TeKQs?si=nACYuQSovZPqVnqm" class="full-episode-link">
-											<h4>Jeffrey Mogil: Pain, Placebo Effects, Medicine, Neuroscience</h4>
-											<p class="episode-meta">Dr. Jeffrey Mogil – E.P. Taylor Professor of Pain Studies and Distinguished James McGill Professor</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/r5uqx3TeKQs?si=nACYuQSovZPqVnqm">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/4eOCs6CgGy4OckKeOl83oD?si=2qHvgSLqQKGhYgw9OdK7yw">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/jeffrey-mogil-pain-placebo-effects-medicine-neuroscience/id1696902521?i=1000622964640">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
+      <div class="group-label">In more detail</div>
+      <p>Currently, I am working on replicating a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8726593/">2021 study on Mutual Information and Categorical Perception</a>, where it was discovered that "the magnitude of improvement in perceptual discrimination of each feature is proportional to the mutual information between the feature and the category variable". In this study, we are investigating how perceptual discrimination of shapes improves after learning, with improvements being proportional to the mutual information between the shapes' features and their categorical relevance, as defined by their position in a novel 2D feature space. Once (hopefully) replicated, we will expand the scope of the study. Once the study is available online, it can be found in this section!</p>
+      <p>This is connected to my robotics research as well. A significant portion of robotics research is dedicated to programming vision to these machines, and feature detection is a key component to making their vision functional and similar to ours. For instance, a <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8653965&amp;casa_token=Xc2U375Rk6gAAAAA:ebj74JjeubCBXrTjPUFg4ifpzvBjF-m4HZDS2wsP8ihXpO-lAwinluhN0hnMr_JTs3eOrRTyQH0">2019 study on monocular camera-based fruit counting and mapping</a> demonstrated that by using semantic data association, a robot was able to achieve highly accurate fruit detection and counting, showcasing that feature association methods significantly improved mapping precision. As such, the work I do with Prof. Feldman has broader applications beyond understanding human feature learning: it also improves robot feature learning, as both rely on detecting, categorizing, and associating features with relevant data to improve perception and decision-making in novel environments.</p>
+      <p>Throughout my undergraduate degree, I volunteered in various labs and wrote three thesis papers across a broad range of topics in psychological research. Within two years, I worked in the <a href="https://www.mcgillhumanmotivation.com/">McGill Human Motivation Lab</a>, <a href="https://rimuhc.ca/-/marc-martel">McGill University Health Centre</a>, <a href="https://www.researchgate.net/lab/Laboratoire-de-Cognition-et-Communication-Stevan-Harnad">Communication and Consciousness Lab</a> and the <a href="https://mogilab.ca/">MOGILab</a>. Each of these labs granted me invaluable opportunities to satisfy my curiosity for intellectual pursuits in research, as well as expand my expertise within the domains of human behaviour, cognitive science, and neuroscience. Each principal investigator carried a unique perspective on how to conduct and interpret research that I carry with me to this day. As clich&eacute; as it may sound, without them I would not be where I am today, pursuing a career in research. The papers themselves live in <a href="#writing">Writing</a>.</p>
+    </article>
 
-									<li>
-										<a href="https://youtu.be/DiiZj0bBn7s?si=GOJA797xTFcGbMMH" class="full-episode-link">
-											<h4>Maxime Robert: Cerebral Palsy, Rehabilitation, VR, Neuroscience</h4>
-											<p class="episode-meta">Dr. Maxime Robert – Professor of Psychology at Laval University in Quebec City</p>
-											<p class="episode-links">
-												<a href="https://youtu.be/DiiZj0bBn7s?si=GOJA797xTFcGbMMH">YouTube</a> | 
-												<a href="https://open.spotify.com/episode/2dRjqgsJH94rnHrJ13nvzP?si=MfDH_Wj_S4GQWQ_RjQ2iOw">Spotify</a> | 
-												<a href="https://podcasts.apple.com/cz/podcast/maxime-robert-cerebral-palsy-rehabilitation-vr-neuroscience/id1696902521?i=1000620725655">Apple Podcasts</a>
-											</p>
-										</a>
-									</li>
-								</ul>
-								
-								<p>If you would like to appear on R-Academy, please fill out the form below. Guest applications reviewed on a case-by-case basis based on fit with the show's mission.</p>
-								<h3 class="major">GUEST FORM</h3>
-								<form action="https://formsubmit.co/robert.contofalsky@rutgers.edu" method="POST">
-									<input type="hidden" name="_subject" value="New Podcast Inquiry">
-									<div class="fields">
-										<div class="field half">
-											<label for="Name">Name</label>
-											<input type="text" name="Name" id="Name" value="" placeholder="Jane Doe" />
-										</div>
-										<div class="field half">
-											<label for="Email">Email</label>
-											<input type="email" name="Email" id="Email" value="" placeholder="jane@untitled.tld" />
-										</div>
-										<div class="field">
-											<label for="Message">Message</label>
-											<textarea name="Message" id="Message" placeholder="Enter your message" rows="6"></textarea>
-										</div>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="primary" /></li>
-									</ul>
-								</form>
-								
-								<h2>Citation</h2>
-								<ol>
-									<li id="Footnote1">Steven Pinker, <i>Enlightenment Now</i>, p. 238
-										<blockquote>
-											Yet the single best predictor of emancipative values is the World Bank’s Knowledge Index, which combines per capita measures of education (adult literacy and enrollment in high schools and colleges), <strong>information access</strong> (telephones, computers, and Internet users), scientific and technological productivity (researchers, patents, and journal articles), and institutional integrity (rule of law, regulatory quality, and open economies).
-										</blockquote>
-									</li>
-								</ol>
-							</article>
-						
-							<!-- Work -->
-							<article id="work">
-							    <h2 class="major">Research</h2>
-							    <span class="image main"><img src="cog sci research.png" alt="" /></span>
-							    <h3 class="major">Graduate Research</h3>
-							    <p>Currently, I am working on replicating a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8726593/">2021 study on Mutual Information and Categorical Perception</a>, where it was discovered that "the magnitude of improvement in perceptual discrimination of each feature is proportional to the mutual information between the feature and the category variable". In this study, we are investigating how perceptual discrimination of shapes improves after learning, with improvements being proportional to the mutual information between the shapes' features and their categorical relevance, as defined by their position in a novel 2D feature space. Once (hopefully) replicated, we will expand the scope of the study (TBD). Once the study is available online, it can be found in this section!</p>
-							    <p>As mentioned in my "About Me" section, this is connected to my robotics research as well. A significant portion of robotics research is dedicated to programming vision to these machines, and feature detection is a key component to making their vision functional and similar to ours. For instance, in a <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=8653965&casa_token=Xc2U375Rk6gAAAAA:ebj74JjeubCBXrTjPUFg4ifpzvBjF-m4HZDS2wsP8ihXpO-lAwinluhN0hnMr_JTs3eOrRTyQH0">2019 study on monocular camera-based fruit counting and mapping</a>, demonstrated that by using semantic data association, a robot was able to achieve highly accurate fruit detection and counting, showcasing that feature association methods significantly improved mapping precision. As such, the work I do with Prof. Feldman has broader applications beyond understanding human feature learning but also improves robot-feature learning as both rely on detecting, categorizing, and associating features with relevant data to improve perception and decision-making in novel environments.</p>
-							    <h3 class="major">Robotics Research</h3>
-								<p>As part of the <a href="https://socrates.rutgers.edu/">SOCRATES Fellowship</a>, I have been collaborating on two applied robotics projects. The first is the <strong>Socially Cognizant Industrial Waste Classification Robot (SC-IWCR)</strong>, where I fine-tuned GroundedSAM for recyclable segmentation and contributed to the grasp dataset generation pipeline. <a href="https://github.com/JoeDoerr/ExpectedGrasps">[code]</a> <a href="SC_Robotics_FinalProject_Group14 (1)-1.pdf">[paper]</a>. The second is a <strong>Robotic Wound Care System</strong>, which uses SAM3-based wound detection, hybrid force-position control, and a novel pre-dab priming mechanism — resulting in a <a href="https://patents.rutgers.edu">patent pending</a> at Rutgers University (RU Docket #2026-114). I also completed the <strong>Graduate Certificate in Socially Cognizant Robotics</strong> in January 2026. <a href="Socially Cognizant Robotics certificate Robert Contofalsky.pdf" target="_blank">[Certificate]</a></p>
-							    <h3 class="major">Undergraduate Research</h3>
-							    <p>Throughout my undergraduate degree, I have volunteered in various labs and have written three thesis papers across a broad range of topics in psychological research. All three of my papers received the grade of A, with my first thesis being published in the McGill Journal of Human Behaviour in 2021!<p></p> 
-							        <p>(I created a dedicated "Writing Sample" Section where I go into more detail about my research theses, as well as selected essays from my undergraduate degree. You can read all my papers in this section should you desire to do so!)</p>
-							    </p>I can say with confidence that I thoroughly enjoyed my time in all the labs I worked in. Within two years, I worked in the <a href="https://www.mcgillhumanmotivation.com/">McGill Human Motivation Lab</a>, <a href="https://rimuhc.ca/-/marc-martel">McGill University Health Centre</a>, <a href="https://www.researchgate.net/lab/Laboratoire-de-Cognition-et-Communication-Stevan-Harnad">Communication and Consciousness Lab</a> and the <a href="https://mogilab.ca/">MOGILab</a>. Each of these labs granted me invaluable opportunities to satisfy my curiosity for intellectual pursuits in research, as well as expand my expertise within the domains of human behaviour, cognitive science, and neuroscience. Furthermore, each principal investigator carried a unique perspective on how to conduct and interpret research that I carry with me to this day and ultimately aim to implement in the near future as I advance my career. As cliché as it may sound, without them I would not be where I am today, pursuing a career in research.</p>
-							</article>
+    <!-- ═══════════ WRITING ═══════════ -->
+    <article id="writing" tabindex="-1" aria-labelledby="writing-h">
+      <div class="panel-head">
+        <h2 id="writing-h">Writing</h2>
+        <span class="hint">esc closes &middot; &larr; &rarr; between sections</span>
+        <button class="close" aria-label="Close section">&times;</button>
+      </div>
+      <p>In this section I go through the three undergraduate theses I wrote, as well as selected essays. If you have any questions about the samples provided, please do not hesitate to reach out — I would be delighted to answer them!</p>
 
-						<!-- Presentations -->
-							<!-- Presentations -->
-							<article id="presentations">
-								<h2 class="major">Presentations</h2>
-								<span class="image main"><img src="cog sci research.png" alt="" /></span>
-								
-								<h3 class="major">Conference Presentations</h3>
-								<ul>
-									<li>
-										<strong>Uniting Physics and Perception: How Constructal Law Governs Human Categorization</strong><br>
-										<em>Contofalsky, R. (2025)</em><br>
-										15th Constructal Law Conference (CLC2025), Miami, FL, United States<br>
-										<a href="https://youtu.be/D9xxOfyw63I?si=MdgQDWV3kCdyNERW" target="_blank">Watch Video</a> | 
-										<a href="#" onclick="document.getElementById('cert-frame').style.display='block'; return false;">View Certificate</a>
-									</li>
-								</ul>
-								
-								<div id="cert-frame" style="display:none; margin-top: 20px;">
-									<iframe src="Robert%20Contofalsky%5B15%5D.pdf" width="100%" height="600px" style="border: none;"></iframe>
-								</div>
-								
-								<h3 class="major">Invited Talks</h3>
-								<ul>
-									<li>
-										<strong>Estimating The Reproducibility Of Psychological Science</strong><br>
-										<em>Contofalsky, R. (2024)</em><br>
-										Tanenbaum Open Science Institute (TOSI) ReproducibiliTea Journal Club, Montreal, Canada
-									</li>
-								</ul>
-								
-								<h3 class="major">Poster Presentations</h3>
-								<ul>
-									<li>
-										<strong>Beyond Mutual Information: Does Utility Affect Categorical Perception?</strong><br>
-										<em>Contofalsky, R., & Feldman, J. (2025)</em><br>
-										Rutgers Annual Cognitive Science Forum
-									</li>
-									<li>
-										<strong>Better anticipating the geographies of robotic and autonomous systems</strong><br>
-										<em>Andrews, C., Angne, H., Contofalsky, R., Dana, K., Padilla Garcia, R., & Wilson, A. (2025)</em><br>
-										American Association of Geographers (AAG) 2025 Annual Meeting, Detroit, MI, United States
-									</li>
-									<li>
-										<strong>Nocebo Hyperalgesia In Male but Not Female Mice Is Mediated by CCK-B Receptors</strong><br>
-										<em>Skvortsova, A., Carrier, S., Contofalsky, R., & Lima V. L. (2022)</em><br>
-										IASP 2022 World Congress on Pain, Toronto, Canada
-									</li>
-								</ul>
+      <div class="group-label">Undergraduate research papers</div>
+      <p>For my first thesis, I investigated the psychological effects of the COVID-19 pandemic on university students from a Self-Determination Theory perspective, under the supervision of <a href="https://www.mcgill.ca/psychology/richard-koestner">Dr. Richard Koestner</a>. We used a 6-wave longitudinal design (n = 379) to examine how needs satisfaction and depressive symptoms manifested throughout the academic year. Our results demonstrated that the initial Covid lockdowns placed incredible amounts of stress on students, which stymied their psychological needs from being satisfied by a significant margin. Consequently, this also exacerbated any depressive symptoms present within our sample, and we found a strong association between the degree that psychological needs were thwarted and the rise in depressive symptoms. Ultimately, this thesis became my first publication: <a href="Publication 1.pdf" target="_blank" rel="noopener">read it here</a>.</p>
+      <p>Not long after, I joined <a href="https://www.ecs.soton.ac.uk/people/harnad">Dr. Stevan Harnad</a>'s lab and wrote a cognitive science <a href="Contofalsky_Robert_Writing-Sample.pdf" target="_blank" rel="noopener">paper</a> about a pilot project examining how/if humans can learn auditory categories through supervised learning. Excitingly enough, our preliminary results were statistically significant, and we demonstrated that our categories are learnable from our sample of 35 participants.</p>
+      <p>In my senior year, I worked on a very technical neurochemical project with <a href="https://aleksandrinaskv.github.io/">Dr. Aleksandrina Skvortsova</a> under the supervision of <a href="https://www.mcgill.ca/psychology/jeffrey-mogil">Dr. Jeffrey Mogil</a>, investigating the nocebo hyperalgesia effect and its underlying neurochemistry. You can read my final draft <a href="Contofalsky_R_PSYC495_Final_Draft.pdf" target="_blank" rel="noopener">here</a>. This work has since been published in <em>Nature Communications</em> (2026): <a href="https://doi.org/10.1038/s41467-026-73266-y" target="_blank" rel="noopener">DOI</a>.</p>
 
-								<h3 class="major">Departmental Presentations</h3>
-								<ul>
-									<li>
-										<strong>Beyond Mutual Information: Does Utility Affect Categorical Perception?</strong><br>
-										<em>Contofalsky, R., & Feldman, J. (2025)</em><br>
-										Rutgers Data Blitz | <a href="https://youtu.be/D9xxOfyw63I?si=MdgQDWV3kCdyNERW" target="_blank">Watch Video</a>
-									</li>
-									<li>
-										<strong>Beyond Mutual Information: Does Utility Affect Categorical Perception?</strong><br>
-										<em>Contofalsky, R., & Feldman, J. (2025)</em><br>
-										Rutgers Spring Cognitive Fest
-									</li>
-								</ul>
-							</article>
+      <div class="group-label">Selected essays</div>
+      <ul class="rows">
+        <li>
+          <span class="num">01</span>
+          <div><div class="row-title">European Intellectual History</div><div class="row-meta">Undergraduate essay — Cyril, Methodius &amp; the Slavic writing system</div></div>
+          <div class="row-links"><a href="#undergrad-essay">[read]</a></div>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <div><div class="row-title">The Necessity of Freedom of Speech</div><div class="row-meta">CEGEP essay — the one that started it all</div></div>
+          <div class="row-links"><a href="#cegep-essay">[read]</a></div>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <div><div class="row-title">ChatGPT Cannot be Sentient</div><div class="row-meta">Personal essay — placebo effects vs. machine consciousness</div></div>
+          <div class="row-links"><a href="#chatgpt-essay">[read]</a></div>
+        </li>
+      </ul>
+    </article>
 
-						<!-- About -->
-							<article id="about">
-								<h2 class="major">Writing Samples</h2>
-								<span class="image main"><img src="writing.jpg" alt="" /></span>
-									<p>In this section I will go through the three undergraduate theses I wrote, as well as include a selected essay of mine. If you have any questions about the samples that I have provided, please do not hesitate in reaching out about any questions you may have, I would be delighted to answer them!</p>
-									<h3 class="major">Undergrduate Research Papers</h3>	
-									<p>For my first thesis, I investigated the psychological effects of the COVID-19 pandemic on university students from a Self-Determination Theory perspective, under the supervision of <a href="https://www.mcgill.ca/psychology/richard-koestner">Dr. Richard Koestner</a>. For our study, we used a 6-wave longitudinal design (n = 379) to examine how needs satisfaction and depressive symptoms manifested throughout the academic year. Our results demonstrated that the initial Covid Lockdowns placed incredible amounts of stress on students, which stymied their psychological needs from being satisfied by a significant margin. Consequently, this also exacerbated any depressive symptoms that were present within our sample, and we found that there was a strong association between the degree that their psychological needs were thwarted and their rise in depressive symptoms. Ultimately, this thesis would be my first publication and the link to it is found <a href="Publication 1.pdf">here</a>.</p>
-											<p>Not long after I wrote my first scientific paper, I joined <a href="https://www.ecs.soton.ac.uk/people/harnad">Dr. Stevan Harnad</a>'s lab and wrote a cognitive science <a href="Contofalsky_Robert_Writing-Sample.pdf">paper</a> about a pilot project to examine how/if humans can learn auditory categories through supervised learning. Excitingly enough, our preliminary results were statistically significant and we demonstrated that our categories are learnable from our sample of 35 participants.</p>
-									<p>In my senior year, I worked on a very technical neurochemical project with <a href="https://aleksandrinaskv.github.io/">Dr. Aleksandrina Skvortsova</a> while under the supervision of <a href="https://www.mcgill.ca/psychology/jeffrey-mogil">Dr. Jeffrey Mogil.</a> Throughout the academic year, we investigated the nocebo hyperalgesia effect and its underlying neurochemistry. You can read my final draft <a href="Contofalsky_R_PSYC495_Final_Draft.pdf">here</a>.</p>
+    <!-- Essay sub-pages -->
+    <article id="undergrad-essay" tabindex="-1" aria-labelledby="ue-h">
+      <div class="panel-head">
+        <h2 id="ue-h">European Intellectual History</h2>
+        <button class="close" aria-label="Close section">&times;</button>
+      </div>
+      <p>My last undergrad <a href="Contofalsky_R_HIST509_FINAL.pdf" target="_blank" rel="noopener">paper</a> is a very different topic compared to my psychology-based research papers, as it was written for my history minor. This was my final essay for the seminar class <a href="https://www.mcgill.ca/study/2022-2023/courses/hist-509">"European Intellectual History"</a>, where I investigated how medieval translators carried and maintained significant medieval history, culture, politics, science, and medical knowledge. For my topic, I chose to write about the Slavic disciples, Cyril and Methodius, and the linguistic, theological, and political journey they embarked on when creating a writing system for the Slavs.</p>
+      <a class="back" href="#writing">&larr; Back to Writing</a>
+    </article>
 
-									<p>This work has since been published in <em>Nature Communications</em> (2026): <a href="https://doi.org/10.1038/s41467-026-73266-y">DOI</a></p>
-									<h3 class="major">Selected Essays</h3>
-									<ul>
-										<li><a href="#undergrad-essay">Undergraduate Essay</a> - European Intellectual History</li>
-										<li><a href="#cegep-essay">CEGEP Essay</a> - The Necessity of Freedom of Speech</li>
-									</ul>
-							</article>
+    <article id="cegep-essay" tabindex="-1" aria-labelledby="ce-h">
+      <div class="panel-head">
+        <h2 id="ce-h">CEGEP Essays</h2>
+        <button class="close" aria-label="Close section">&times;</button>
+      </div>
+      <h3>Early essays I saved</h3>
+      <p>In 2018, for my last Social Science course in <a href="https://en.wikipedia.org/wiki/CEGEP">CEGEP</a>, I wrote a final <a href="CEGEP_FINAL_PAPER.docx.pdf" target="_blank" rel="noopener">paper on the necessity of Freedom of Speech</a>. While the writing is sloppy, and the arguments might even seem a bit disjointed at times, I can say with confidence that this was the paper that solidified my desire to remain in academia. Being from a democratic country, it is almost second nature to believe in Free Speech. However, to craft an argument in favour of free speech <em>is not easy</em>. Because the easiest counter argument to Free Speech is that it might be preferable to control speech. Letting it be free means that hateful and dangerous ideas are no longer punitive, but potentially validated. Therefore, it is better to just control the bad ideas; this is a far easier argument to make than the converse of non-regulation. In addition, it seems trivial/lazy to just say that things should be free, things will just sort themselves out. Anyone who has gone through some type of personal tragedy would understand that someone insulting or making fun of their personal tragedy when it is in its most painful state would prefer some type of restraint on the comments they receive during this time instead of letting anything go. As such, I discovered that in fact, it was very hard to make the argument <strong><em>FOR</em></strong> Free Speech. Because when you argue for Free Speech, you are not making an argument for how we organize our conversations personally, but you are making an argument for how a society ought to organize itself. So, to make this argument I had to dive into the deep ends of many topics. The first was the history of speech; where does it come from. Second, was the psychology of free dialogue and the nature of speech. And third, the downstream legal effects of free speech, as to have true freedom of speech, every other institution has to support this law, because Free Speech is not free unless every other law respects this basic one. This is an incredible amount of things to talk about in 15 pages; there are entire books dedicated to each of these topics, and I had to find a way to combine them in a way that is succinct, cohesive, and convincing. This was not easy, and it took me months to get this going, which is not something any CEGEP student should do. (Which I believe reflects my willingness to dive deep into extremely complex topics, something that an academic faces on the daily). I ended up getting a 97 on the paper, and I felt like I had learned a great deal about the world in that journey. Lastly, what I find most rewarding about this early work is that I independently discovered and synthesized perspectives from multiple disciplines — marketplace of ideas theory, democratic philosophy, linguistics, and psychology — creating an interdisciplinary argument for free speech without yet knowing these were established fields of study, demonstrating the kind of integrative thinking that would later define my academic approach.</p>
+      <h3>1917 Russian Revolution</h3>
+      <p><a href="Russian Revolution 1917.docx.pdf" target="_blank" rel="noopener">The last history class I took in CEGEP.</a></p>
+      <h3>Essay on Personality Psych</h3>
+      <p><a href="psych.pdf" target="_blank" rel="noopener">My first essay in my first psychology course.</a></p>
+      <a class="back" href="#writing">&larr; Back to Writing</a>
+    </article>
 
-							<!-- Personal essay about ChatGPT -->
-							<article id="Personal Essays">
-								<h2 class ="major">ChatGPT Cannot be Sentient</h2>
-								<p>A personal (incomplete) essay <a href="Can a computer experience placebo_.pdf">about why I believe the Placebo effect invalidates ChatGPT being conscious</a>. This essay is unpublished and lacks a full citation work. It could be re-written for publication purposes.</p>
-								<p><a href="#about">← Back to Writing Samples</a></p>
-							</article>	
-							<!-- Undergrad Essay Section -->
-							<article id="undergrad-essay">
-								<h2 class="major">Undergraduate Essay</h2>
-								<h3 class="major">European Intellectual History</h3>
-								<p>For my last undergrad <a href="Contofalsky_R_HIST509_FINAL.pdf">paper</a>, it is a very different topic compared to my psychology based research papers, as it was written for my history minor. To keep things brief (as this essay is very complicated), this was my final essay for the seminar class <a href="https://www.mcgill.ca/study/2022-2023/courses/hist-509">"European Intellectual History"</a>, where I investigated how medieval translators carried and maintained significant medieval history, culture, politics, science, and medical knowledge. For my topic, I chose to write about the Slavic disciples, Cyril and Methodius, and the linguistic, theological, and political journey they embarked on when creating a writing system for the Slavs.</p>
-								<p><a href="#about">← Back to Writing Samples</a></p>
-							</article>
-							
-							<!-- CEGEP Essay Section -->
-							<article id="cegep-essay">
-								<h2 class="major">CEGEP Essays</h2>
-								<h3 class="major">Early Essays I Saved</h3>
-								<p>In 2018, for my last Social Science course in <a href="https://en.wikipedia.org/wiki/CEGEP">CEGEP</a>, I wrote a final <a href="CEGEP_FINAL_PAPER.docx.pdf">paper on the necessity of Freedom of Speech</a>. While the writing is sloppy, and the arguments might even seem a bit disjointed at times, I can say with confidence that this was the paper that solidified my desire to remain in academia. Being from a democratic country, it is almost second nature to believe in Free Speech. However, to craft an argument in favour of free speech <em>is not easy</em>. Because the easiest counter argument to Free Speech is that it might be preferable to control speech. Letting it be free means that hateful and dangerous ideas are no longer punitive, but potentially validated. Therefore, it is better to just control the bad ideas; this is a far easier argument to make than the converse of non-regulation. In addition, it seems trivial/lazy to just say that things should be free, things will just sort themselves out. Anyone who has gone through some type of personal tragedy would understand that someone insulting or making fun of their personal tragedy when it is in its most painful state would prefer some type of restraint on the comments they receive during this time instead of letting anything go. As such, I discovered that in fact, it was very hard to make the argument <b><em>FOR</em></b> Free Speech. Because when you argue for Free Speech, you are not making an argument for how we organize our conversations personally, but you are making an argument for how a society ought to organize itself. So, to make this argument I had to dive into the deep ends of many topics. The first was the history of speech; where does it come from. Second, was the psychology of free dialogue and the nature of speech. And third, the downstream legal effects of free speech, as to have true freedom of speech, every other institution has to support this law, because Free Speech is not free unless every other law respects this basic one. This is an incredible amount of things to talk about in 15 pages; there are entire books dedicated to each of these topics, and I had to find a way to combine them in a way that is succinct, cohesive, and convincing. This was not easy, and it took me months to get this going, which is not something any CEGEP student should do. (Which I believe reflects my willingness to dive deep into extremely complex topic, something that an academic faces on the daily). I ended up getting a 97 on the paper, and I felt like I had learned a great deal about the world in that journey. Lastly, what I find most rewarding about this early work is that I independently discovered and synthesized perspectives from multiple disciplines — marketplace of ideas theory, democratic philosophy, linguistics, and psychology — creating an interdisciplinary argument for free speech without yet knowing these were established fields of study, demonstrating the kind of integrative thinking that would later define my academic approach.</p>
-								<h4>1917 Russian Revolution</h4>
-								<p>Russian Revolution 1917<a href="Russian Revolution 1917.docx.pdf">Last history class I took in CEGEP.</a></p>
-								<h4>Essay on Personality Psych</h4>
-								<p>Essay<a href="psych.pdf">My first essay in my first psychology course.</a></p>
-								<p><a href="#about">← Back to Writing Samples</a></p>
-							</article>
+    <article id="chatgpt-essay" tabindex="-1" aria-labelledby="cg-h">
+      <div class="panel-head">
+        <h2 id="cg-h">ChatGPT Cannot be Sentient</h2>
+        <button class="close" aria-label="Close section">&times;</button>
+      </div>
+      <p>A personal (incomplete) essay <a href="Can a computer experience placebo_.pdf" target="_blank" rel="noopener">about why I believe the Placebo effect invalidates ChatGPT being conscious</a>. This essay is unpublished and lacks a full citation work. It could be re-written for publication purposes.</p>
+      <a class="back" href="#writing">&larr; Back to Writing</a>
+    </article>
 
-					</div>
+    <!-- ═══════════ PRESENTATIONS ═══════════
+         To add one: copy an <li> in the right group and edit. -->
+    <article id="presentations" tabindex="-1" aria-labelledby="pres-h">
+      <div class="panel-head">
+        <h2 id="pres-h">Presentations</h2>
+        <span class="hint">esc closes &middot; &larr; &rarr; between sections</span>
+        <button class="close" aria-label="Close section">&times;</button>
+      </div>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="footer-text">Last Updated: May 7, 2026</p>
-						<p class="copyright">&copy; Robert Contofalsky<a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
+      <div class="group-label">Conference</div>
+      <ul class="talks">
+        <li>
+          <strong>Uniting Physics and Perception: How Constructal Law Governs Human Categorization</strong><br>
+          <em>Contofalsky, R. (2025)</em><br>
+          <span class="venue">15th Constructal Law Conference (CLC2025), Miami, FL, United States</span><br>
+          <span class="links"><a href="https://youtu.be/D9xxOfyw63I?si=MdgQDWV3kCdyNERW" target="_blank" rel="noopener">[video]</a> <a href="Robert%20Contofalsky%5B15%5D.pdf" target="_blank" rel="noopener">[certificate]</a></span>
+        </li>
+      </ul>
 
-			</div>
+      <div class="group-label">Invited talks</div>
+      <ul class="talks">
+        <li>
+          <strong>Estimating The Reproducibility Of Psychological Science</strong><br>
+          <em>Contofalsky, R. (2024)</em><br>
+          <span class="venue">Tanenbaum Open Science Institute (TOSI) ReproducibiliTea Journal Club, Montreal, Canada</span>
+        </li>
+      </ul>
 
-		<!-- BG -->
-			<div id="bg"></div>
+      <div class="group-label">Posters</div>
+      <ul class="talks">
+        <li>
+          <strong>Beyond Mutual Information: Does Utility Affect Categorical Perception?</strong><br>
+          <em>Contofalsky, R., &amp; Feldman, J. (2025)</em><br>
+          <span class="venue">Rutgers Annual Cognitive Science Forum</span><br>
+          <span class="links"><a href="ContofalskyR_CogSci_ForumPoster-FINAL.pdf" target="_blank" rel="noopener">[poster]</a></span>
+        </li>
+        <li>
+          <strong>Better anticipating the geographies of robotic and autonomous systems</strong><br>
+          <em>Andrews, C., Angne, H., Contofalsky, R., Dana, K., Padilla Garcia, R., &amp; Wilson, A. (2025)</em><br>
+          <span class="venue">American Association of Geographers (AAG) 2025 Annual Meeting, Detroit, MI, United States</span>
+        </li>
+        <li>
+          <strong>Nocebo Hyperalgesia In Male but Not Female Mice Is Mediated by CCK-B Receptors</strong><br>
+          <em>Skvortsova, A., Carrier, S., Contofalsky, R., &amp; Lima V. L. (2022)</em><br>
+          <span class="venue">IASP 2022 World Congress on Pain, Toronto, Canada</span>
+        </li>
+      </ul>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+      <div class="group-label">Departmental</div>
+      <ul class="talks">
+        <li>
+          <strong>Beyond Mutual Information: Does Utility Affect Categorical Perception?</strong><br>
+          <em>Contofalsky, R., &amp; Feldman, J. (2025)</em><br>
+          <span class="venue">Rutgers Data Blitz</span>
+          <span class="links"><a href="https://youtu.be/D9xxOfyw63I?si=MdgQDWV3kCdyNERW" target="_blank" rel="noopener">[video]</a></span>
+        </li>
+        <li>
+          <strong>Beyond Mutual Information: Does Utility Affect Categorical Perception?</strong><br>
+          <em>Contofalsky, R., &amp; Feldman, J. (2025)</em><br>
+          <span class="venue">Rutgers Spring Cognitive Fest</span>
+        </li>
+      </ul>
+    </article>
 
-	</body>
+<!-- ═══════════ PODCAST — No Prereqs, full presence ═══════════
+         New episode? Update the "Latest" feature block, then add the old latest
+         as a new top <li> in the all-episodes list. -->
+    <article id="podcast" tabindex="-1" aria-labelledby="pod-h">
+      <div class="panel-head">
+        <h2 id="pod-h">No Prereqs</h2>
+        <span class="hint">esc closes &middot; &larr; &rarr; between sections</span>
+        <button class="close" aria-label="Close section">&times;</button>
+      </div>
+
+      <div style="text-align:center; padding:16px 0 6px">
+        <svg width="92" height="92" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g transform="translate(200,200) scale(1.1)"><path d="M-54.7 -150.4 A160 160 0 0 0 -54.7 150.4" fill="none" stroke="#E9E5DC" stroke-width="6"></path><path d="M54.7 -150.4 A160 160 0 0 1 54.7 150.4" fill="none" stroke="#E9E5DC" stroke-width="6"></path><g transform="translate(13.7,5)"><path d="M-109 100 V-100 L-23 100 V-100" fill="none" stroke="#E9E5DC" stroke-width="6"></path><path d="M7 100 V-100 H52 A57 57 0 0 1 52 14 H7" fill="none" stroke="#E9E5DC" stroke-width="6"></path><polygon points="38,-63 38,-23 76,-43" fill="#C13B2E"></polygon></g></g></svg>
+        <div style="margin-top:24px; font-size:clamp(26px,4.5vw,40px); font-weight:200; letter-spacing:.28em; text-indent:.28em; text-transform:uppercase; color:var(--ink)">No Prereqs</div>
+        <div style="width:110px; height:3px; background:var(--red); margin:22px auto 0"></div>
+        <div style="margin-top:20px; font-size:11px; letter-spacing:.5em; text-indent:.5em; text-transform:uppercase; color:var(--muted)">With Robert Contofalsky</div>
+        <p style="max-width:480px; margin:26px auto 0; font-weight:300; font-size:15px; line-height:1.85; color:rgba(233,229,220,.72); text-wrap:pretty">Expert conversations with no barrier to entry &mdash; every episode comes with receipts.</p>
+        <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:32px">
+          <a class="npbtn" href="https://www.youtube.com/@R--Academy/featured" target="_blank" rel="noopener"><span class="tri"></span>YouTube</a>
+          <a class="npbtn" href="https://open.spotify.com/show/0dU9CjrGj3yCQdw7raVAq3" target="_blank" rel="noopener"><span class="tri"></span>Spotify</a>
+          <a class="npbtn" href="https://podcasts.apple.com/us/podcast/r-academy/id1696902521" target="_blank" rel="noopener"><span class="tri"></span>Apple Podcasts</a>
+        </div>
+        <p style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:rgba(142,139,132,.6); margin:22px 0 0">Formerly R-Academy &mdash; same show, no prerequisites</p>
+      </div>
+
+      <div class="nprule"><span class="dash"></span><h3>Latest Episode</h3><span class="ext"></span></div>
+      <div class="feature">
+        <div style="flex:none; display:flex; align-items:center; justify-content:center; padding:28px 34px">
+          <div class="tick" style="width:126px; transform:rotate(-1.75deg)"><div class="tep-o"><div class="tep-i" style="font-size:11px; padding:6px 2px">EP 015</div></div><div class="qr" data-qr="https://youtu.be/-fn3GnLIZdQ" style="width:92px; height:92px"></div><div class="tick-scan" style="font-size:8.5px">Scan to play</div></div>
+        </div>
+        <div class="feature-body">
+          <span style="font-family:var(--mono); font-size:11px; letter-spacing:.45em; color:var(--muted)">EP 015</span>
+          <span style="font-size:24px; font-weight:200; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); line-height:1.2">Trevor Fortner</span>
+          <span style="font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted)">High Stakes Decision-Making</span>
+          <span style="display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-top:10px">
+            <a class="npbtn" href="https://www.youtube.com/watch?v=-fn3GnLIZdQ" target="_blank" rel="noopener" style="padding:10px 18px"><span class="tri"></span>Watch EP 015</a>
+            <span class="links"><a href="https://open.spotify.com/episode/52pmK0EDF5tHxRSYDGw77f?si=xe7_U_0YSIOUu3yM-C2VRQ" target="_blank" rel="noopener">[spotify]</a> <a href="https://podcasts.apple.com/us/podcast/trevor-fortner-high-stakes-decision-making-r-academy-15/id1696902521?i=1000765947129" target="_blank" rel="noopener">[apple]</a></span>
+          </span>
+        </div>
+      </div>
+      <div class="upnext">
+        <span class="kicker">Up next</span>
+        <span>Jenin Younes: 1st Amendment Litigation &middot; August 2026 &nbsp;/&nbsp; Amritpal Singh: Abstract Reasoning &middot; editing &nbsp;/&nbsp; Tania Lombrozo &middot; November 2026</span>
+      </div>
+
+      <div class="nprule"><span class="dash"></span><h3>Episode Archive</h3><span class="ext"></span></div>
+      <!-- ADD AN EPISODE CARD: copy an <a class="npcard"> below, edit the EP number/guest/topic,
+           set data-qr="https://youtu.be/VIDEO_ID" (the QR draws itself), and add a matching <li> to the full list inside <details>. -->
+      <div class="arch">
+        <a class="npcard" href="https://youtu.be/F6w8GxcFmOU?si=7FVO2gR8TVQsbOyo" target="_blank" rel="noopener">
+          <div>
+            <div class="npmk">[NP]</div>
+            <div class="npmk-sub">NO PREREQS<em></em></div>
+          </div>
+          <div class="meta">
+            <div class="n">EP 014</div>
+            <div class="g">Elkhonon Goldberg</div>
+            <div class="t">Brain Organization &amp; Neuropsychology</div>
+            <div class="w">With Robert Contofalsky</div>
+          
+            <div class="tick"><div class="tep-o"><div class="tep-i">EP 014</div></div><div class="qr" data-qr="https://youtu.be/F6w8GxcFmOU"></div><div class="tick-scan">Scan to play</div></div>
+          </div>
+        </a>
+        <a class="npcard" href="https://youtu.be/T8_O-2ClE_k" target="_blank" rel="noopener">
+          <div>
+            <div class="npmk">[NP]</div>
+            <div class="npmk-sub">NO PREREQS<em></em></div>
+          </div>
+          <div class="meta">
+            <div class="n">EP 013</div>
+            <div class="g">Adrian Bejan</div>
+            <div class="t">Constructal Law &amp; Time &middot; Round 3</div>
+            <div class="w">With Robert Contofalsky</div>
+          
+            <div class="tick"><div class="tep-o"><div class="tep-i">EP 013</div></div><div class="qr" data-qr="https://youtu.be/T8_O-2ClE_k"></div><div class="tick-scan">Scan to play</div></div>
+          </div>
+        </a>
+        <a class="npcard" href="https://youtu.be/CPyPfZMd3TE?si=HgjufPFq9V4wHdAJ" target="_blank" rel="noopener">
+          <div>
+            <div class="npmk">[NP]</div>
+            <div class="npmk-sub">NO PREREQS<em></em></div>
+          </div>
+          <div class="meta">
+            <div class="n">EP 012</div>
+            <div class="g">Steven Pinker</div>
+            <div class="t">Common Knowledge &amp; Social Coordination</div>
+            <div class="w">With Robert Contofalsky</div>
+          
+            <div class="tick"><div class="tep-o"><div class="tep-i">EP 012</div></div><div class="qr" data-qr="https://youtu.be/CPyPfZMd3TE"></div><div class="tick-scan">Scan to play</div></div>
+          </div>
+        </a>
+        <a class="npcard" href="https://youtu.be/v0Hvq8e2e40" target="_blank" rel="noopener">
+          <div>
+            <div class="npmk">[NP]</div>
+            <div class="npmk-sub">NO PREREQS<em></em></div>
+          </div>
+          <div class="meta">
+            <div class="n">EP 009</div>
+            <div class="g">Eric Hehman</div>
+            <div class="t">Prejudice &amp; Social Psychology</div>
+            <div class="w">With Robert Contofalsky</div>
+          
+            <div class="tick"><div class="tep-o"><div class="tep-i">EP 009</div></div><div class="qr" data-qr="https://youtu.be/v0Hvq8e2e40"></div><div class="tick-scan">Scan to play</div></div>
+          </div>
+        </a>
+        <a class="npcard" href="https://youtu.be/nvDEI_ALHus" target="_blank" rel="noopener">
+          <div>
+            <div class="npmk">[NP]</div>
+            <div class="npmk-sub">NO PREREQS<em></em></div>
+          </div>
+          <div class="meta">
+            <div class="n">EP 008</div>
+            <div class="g">Soud Al-Kharusi</div>
+            <div class="t">Astrophysics &amp; Neutrinos</div>
+            <div class="w">With Robert Contofalsky</div>
+          
+            <div class="tick"><div class="tep-o"><div class="tep-i">EP 008</div></div><div class="qr" data-qr="https://youtu.be/nvDEI_ALHus"></div><div class="tick-scan">Scan to play</div></div>
+          </div>
+        </a>
+        <a class="npcard" href="https://www.youtube.com/watch?v=zmDH3GS8uNo" target="_blank" rel="noopener">
+          <div>
+            <div class="npmk">[NP]</div>
+            <div class="npmk-sub">NO PREREQS<em></em></div>
+          </div>
+          <div class="meta">
+            <div class="n">EP 006</div>
+            <div class="g">Stevan Harnad</div>
+            <div class="t">Consciousness &amp; ChatGPT</div>
+            <div class="w">With Robert Contofalsky</div>
+          
+            <div class="tick"><div class="tep-o"><div class="tep-i">EP 006</div></div><div class="qr" data-qr="https://youtu.be/zmDH3GS8uNo"></div><div class="tick-scan">Scan to play</div></div>
+          </div>
+        </a>
+      </div>
+      <details class="eplist">
+        <summary class="npbtn">All 15 episodes &darr;</summary>
+        <ul class="rows" id="all-episodes">
+        <li>
+          <span class="num">14</span>
+          <div><div class="row-title">Elkhonon Goldberg: Brain Organization &amp; Neuropsychology</div><div class="row-meta">Dr. Elkhonon Goldberg, ABPP — Director of The Luria Institute</div></div>
+          <div class="row-links"><a href="https://youtu.be/F6w8GxcFmOU?si=7FVO2gR8TVQsbOyo" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/1CbzL77WjH6vDTzw0nJc3V?si=cQMZ-WZxQ7-NYXomyHiVMQ" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/us/podcast/elkhonon-goldberg-brain-organization-neuropsychology/id1696902521?i=1000750534125" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">13</span>
+          <div><div class="row-title">Adrian Bejan: Constructal Law, Social Systems &amp; Time — Round 3</div><div class="row-meta">Dr. Adrian Bejan — J.A. Jones Distinguished Professor of Mechanical Engineering at Duke University</div></div>
+          <div class="row-links"><a href="https://youtu.be/T8_O-2ClE_k" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6phMuwk4wiIGVWC7VeIz6V?si=5ROHqZ2rSdGe-QcTOUP2KA" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/adrian-bejan-constructal-law-social-systems-time-r/id1696902521?i=1000737348514" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">12</span>
+          <div><div class="row-title">Steven Pinker: Common Knowledge &amp; Social Coordination</div><div class="row-meta">Dr. Steven Pinker — Johnstone Family Professor of Psychology at Harvard University</div></div>
+          <div class="row-links"><a href="https://youtu.be/CPyPfZMd3TE?si=HgjufPFq9V4wHdAJ" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/3VYmoc1CA6zHQqoJLjElUU?si=j_413CDgTauJyTkG5noLBw" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/us/podcast/steven-pinker-common-knowledge-social-coordination/id1696902521?i=1000732564666" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">11</span>
+          <div><div class="row-title">Adrian Bejan: How Physics Explains Life &amp; Civilization — Round 2</div><div class="row-meta">Dr. Adrian Bejan — Duke University</div></div>
+          <div class="row-links"><a href="https://youtu.be/_IG8B-5hvck?si=54lDLf31QahPVQs3" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/7JrkIt3d0zS2h79NZfFBEs?si=z6zPMzqgTSOgxDm6B_Yz8A" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/adrian-bejan-how-physics-explains-life-civilization/id1696902521?i=1000728720747" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">10</span>
+          <div><div class="row-title">Adrian Bejan: Constructal Law &amp; Thermodynamics — Round 1</div><div class="row-meta">Dr. Adrian Bejan — Duke University</div></div>
+          <div class="row-links"><a href="https://youtu.be/_IG8B-5hvck" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/5qXnqXYlgUlQW0ZMUopDqe?si=rm2QCWe6TuyMlNHYoqZNvQ" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/adrian-bejan-constructal-law-thermodynamics-r-academy-10/id1696902521?i=1000728721778" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">09</span>
+          <div><div class="row-title">Eric Hehman: Prejudice &amp; Social Psychology</div><div class="row-meta">Dr. Eric Hehman — Associate Professor of Psychology at McGill University</div></div>
+          <div class="row-links"><a href="https://youtu.be/v0Hvq8e2e40" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/0CnpHyERbpnHmAXMBTGkQ5?si=FycgDjBWRFWhAfnXfb0peA" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/eric-hehman-prejudice-social-psychology-r-academy-9/id1696902521?i=1000698892277" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">08</span>
+          <div><div class="row-title">Soud Al-Kharusi: Astrophysics &amp; Neutrinos</div><div class="row-meta">Dr. Soud Al-Kharusi — Post-Doctoral Researcher at Stanford University</div></div>
+          <div class="row-links"><a href="https://youtu.be/nvDEI_ALHus" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6czGqez4B35AxMX0levBEu?si=-VmvxezSS_ye6Ol_bMMh1g" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/soud-al-kharusi-astrophysics-neutrinos-fundamental/id1696902521?i=1000680875364" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">07</span>
+          <div><div class="row-title">Aleksandrina Skvortsova: Placebo &amp; Nocebo Effects</div><div class="row-meta">Dr. Aleksandrina Skvortsova — Professor of Psychology at Leiden University</div></div>
+          <div class="row-links"><a href="https://youtu.be/fnLnv4z3Iuo?si=jnkKugvs6T6twB1y" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/4ZZXaY5ENc6zM7IXbVGwTv?si=9zCT650kTPSyb6gSQTYa1w" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/aleksandrina-skvortsova-placebo-nocebo-effects-r-academy/id1696902521?i=1000677010633" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">06</span>
+          <div><div class="row-title">Stevan Harnad: Cognitive Science, Consciousness &amp; ChatGPT</div><div class="row-meta">Dr. Stevan Harnad — Professor of Psychology at Universit&eacute; du Qu&eacute;bec &agrave; Montr&eacute;al</div></div>
+          <div class="row-links"><a href="https://www.youtube.com/watch?v=zmDH3GS8uNo" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6ljQiDeuGYI7Vo2fLggWGD?si=-5h8e3I0TAupUAaCWBVRYQ" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/stevan-harnad-cognitive-science-consciousness-chatgpt/id1696902521?i=1000670792688" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">05</span>
+          <div><div class="row-title">Laura Wagner: Language &amp; The Mind</div><div class="row-meta">Dr. Laura Wagner — Professor of Linguistics at The Ohio State University</div></div>
+          <div class="row-links"><a href="https://youtu.be/wV_gAvz-YeY?si=un70w4kh2cb10VD0" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/2rgPhaBnz2gwK5m1tIoBei?si=FTDQfKwiQ-Sr2PU8EDELbA" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/laura-wagner-language-the-mind-r-academy-episode-5/id1696902521?i=1000643210323" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">04</span>
+          <div><div class="row-title">John C. Gibbs: Moral Psychology &amp; Rehabilitating Juvenile Delinquency</div><div class="row-meta">Dr. John C. Gibbs — Professor of Psychology at The Ohio State University</div></div>
+          <div class="row-links"><a href="https://youtu.be/vBIhEodrF3o?si=YjEwNl1K1wE0sPEU" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6hFPRq6Fu8TL4VmcFWqX7U?si=0duisyEBQpSSeNd888RpgQ" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/john-c-gibbs-moral-psychology-rehabilitating-juvenile/id1696902521?i=1000636842558" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">03</span>
+          <div><div class="row-title">Richard Koestner: Human Motivation &amp; Personality</div><div class="row-meta">Dr. Richard Koestner — Professor of Psychology at McGill University</div></div>
+          <div class="row-links"><a href="https://youtu.be/w1Ue4hQ6VD0?si=LQv60-hDr7XtHMOc" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6hiYagSfVwxzHmtZCo2BS1?si=THaZampMS22X55-dLAmVOw" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/richard-koestner-human-motivation-personality-r-academy/id1696902521?i=1000629933453" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">02</span>
+          <div><div class="row-title">Jeffrey Mogil: Pain, Placebo Effects, Medicine, Neuroscience</div><div class="row-meta">Dr. Jeffrey Mogil — E.P. Taylor Professor of Pain Studies and Distinguished James McGill Professor</div></div>
+          <div class="row-links"><a href="https://youtu.be/r5uqx3TeKQs?si=nACYuQSovZPqVnqm" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/4eOCs6CgGy4OckKeOl83oD?si=2qHvgSLqQKGhYgw9OdK7yw" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/jeffrey-mogil-pain-placebo-effects-medicine-neuroscience/id1696902521?i=1000622964640" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+        <li>
+          <span class="num">01</span>
+          <div><div class="row-title">Maxime Robert: Cerebral Palsy, Rehabilitation, VR, Neuroscience</div><div class="row-meta">Dr. Maxime Robert — Professor of Psychology at Laval University in Quebec City</div></div>
+          <div class="row-links"><a href="https://youtu.be/DiiZj0bBn7s?si=GOJA797xTFcGbMMH" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/2dRjqgsJH94rnHrJ13nvzP?si=MfDH_Wj_S4GQWQ_RjQ2iOw" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/maxime-robert-cerebral-palsy-rehabilitation-vr-neuroscience/id1696902521?i=1000620725655" target="_blank" rel="noopener">[ap]</a></div>
+        </li>
+      </ul>
+      </details>
+
+      <div class="nprule" style="justify-content:center"><span class="dash"></span><h3>Guest Wall</h3><span class="dash"></span></div>
+      <div class="gwall">
+        <div><div class="gname">Steven Pinker</div><div class="gfield">Cognitive Psychology</div></div>
+        <div><div class="gname">Adrian Bejan</div><div class="gfield">Thermodynamics</div></div>
+        <div><div class="gname">Elkhonon Goldberg</div><div class="gfield">Neuropsychology</div></div>
+        <div><div class="gname">Stevan Harnad</div><div class="gfield">Cognitive Science</div></div>
+        <div><div class="gname">Jeffrey Mogil</div><div class="gfield">Pain Neuroscience</div></div>
+      </div>
+
+      <div class="nprule"><span class="dash"></span><h3>The Mission</h3><span class="ext"></span></div>
+      <div style="max-width:560px; margin:0 auto; text-align:center">
+        <p style="font-weight:300; line-height:1.9; color:rgba(233,229,220,.75); text-wrap:pretty">The best ideas usually sit behind gates &mdash; jargon, paywalls, an assumed decade of reading. No Prereqs opens them. Robert Contofalsky sits down with the people who wrote the textbooks and asks the questions a curious outsider would actually ask.</p>
+        <p style="font-weight:300; line-height:1.9; color:rgba(233,229,220,.75); text-wrap:pretty">And because claims deserve sources, every episode ships with its receipts: the papers, books, and studies behind the conversation, ready to scan.</p>
+        <div style="display:inline-block; margin-top:20px; transform:rotate(-5deg); opacity:.92">
+          <div style="border:2.5px solid var(--red); border-radius:10px; padding:4px">
+            <div style="border:1px solid var(--red); border-radius:6px; padding:11px 24px; font-family:var(--mono); font-size:14px; font-weight:700; letter-spacing:.35em; text-indent:.35em; color:var(--red)">PREREQ: NONE</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nprule"><span class="dash"></span><h3>Be a Guest</h3><span class="ext"></span></div>
+      <p style="max-width:480px; margin:0 auto 6px; text-align:center; font-weight:300; line-height:1.9; color:rgba(233,229,220,.72); text-wrap:pretty">Spent a career going deep on something most people have never heard of? The chair across from Robert is open.</p>
+      <p style="font-size:13px; color:var(--muted); text-align:center">Guest applications are reviewed case-by-case based on fit with the show's mission.</p>
+      <form action="https://formsubmit.co/robert.contofalsky@rutgers.edu" method="POST">
+        <input type="hidden" name="_subject" value="No Prereqs — Guest Inquiry">
+        <div class="fields">
+          <div><label for="Name">Name</label><input type="text" name="Name" id="Name" placeholder="Jane Doe"></div>
+          <div><label for="Email">Email</label><input type="email" name="Email" id="Email" placeholder="jane@untitled.tld"></div>
+          <div class="field-full"><label for="Message">Message</label><textarea name="Message" id="Message" rows="6" placeholder="Enter your message"></textarea></div>
+        </div>
+        <button type="submit">Send message</button>
+      </form>
+
+      <div class="nprule"><span class="dash"></span><h3>Citation</h3><span class="ext"></span></div>
+      <p id="footnote-1" style="font-size:14px">1. Steven Pinker, <em>Enlightenment Now</em>, p. 238</p>
+      <blockquote>Yet the single best predictor of emancipative values is the World Bank's Knowledge Index, which combines per capita measures of education (adult literacy and enrollment in high schools and colleges), <strong>information access</strong> (telephones, computers, and Internet users), scientific and technological productivity (researchers, patents, and journal articles), and institutional integrity (rule of law, regulatory quality, and open economies).</blockquote>
+    </article>
+
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════
+       The "Updated" line fills itself in from the latest commit — nothing to edit here. -->
+  <footer>
+    <span class="copy">&copy; Robert Contofalsky &middot; <a href="mailto:robert.contofalsky@rutgers.edu">robert.contofalsky@rutgers.edu</a></span>
+    <div class="updated">
+      <div id="upd-line"><span class="dot" aria-hidden="true"></span><b>Last updated May 2026</b></div>
+      <div class="upd-note">auto-generated from the latest commit</div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    (function () {
+      // Cream QR tickets — any element with data-qr gets a scannable code.
+      // New episode? Just set data-qr="https://youtu.be/VIDEO_ID" on the card's .qr div.
+      function drawQRs() {
+        if (!window.QRCode) return;
+        var els = document.querySelectorAll('.qr[data-qr]');
+        for (var i = 0; i < els.length; i++) {
+          if (els[i].childNodes.length) continue;
+          var size = els[i].clientWidth || 74;
+          try { new QRCode(els[i], { text: els[i].getAttribute('data-qr'), width: size, height: size, colorDark: '#17181C', colorLight: '#FBF7EC', correctLevel: QRCode.CorrectLevel.M }); } catch (e) {}
+        }
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', drawQRs); else drawQRs();
+    })();
+  </script>
+  <script>
+    (function () {
+      var SECTIONS = ['about', 'research', 'writing', 'presentations', 'podcast'];
+      var SUBS = { 'undergrad-essay': 'writing', 'cegep-essay': 'writing', 'chatgpt-essay': 'writing' };
+      var main = document.getElementById('main');
+
+      function current() {
+        var id = location.hash.replace('#', '');
+        return document.getElementById(id) && (SECTIONS.indexOf(id) > -1 || SUBS[id]) ? id : null;
+      }
+      function route(focus) {
+        var id = current();
+        document.body.classList.toggle('is-open', !!id);
+        var arts = main.querySelectorAll('article');
+        for (var i = 0; i < arts.length; i++) arts[i].classList.toggle('open', arts[i].id === id);
+        var name = id ? document.querySelector('#' + id + ' h2').textContent : null;
+        document.title = name ? name + ' — Robert Contofalsky' : 'Robert Contofalsky';
+        if (id && focus !== false) { document.getElementById(id).focus({ preventScroll: true }); window.scrollTo(0, 0); }
+      }
+      function close() {
+        history.pushState('', document.title, location.pathname + location.search);
+        route(false);
+        var first = document.querySelector('#nav a'); if (first) first.focus({ preventScroll: true });
+      }
+
+      window.addEventListener('hashchange', route);
+      route(false);
+
+      // × buttons close; clicking the dark area around a panel closes
+      var closers = document.querySelectorAll('.close');
+      for (var i = 0; i < closers.length; i++) closers[i].addEventListener('click', close);
+      main.addEventListener('click', function (e) { if (e.target === main) close(); });
+
+      // esc closes · ← → move between the five main sections
+      document.addEventListener('keydown', function (e) {
+        var id = current();
+        if (!id || e.target.matches('input, textarea')) return;
+        if (e.key === 'Escape') { close(); return; }
+        var base = SUBS[id] || id, idx = SECTIONS.indexOf(base);
+        if (e.key === 'ArrowRight') location.hash = SECTIONS[(idx + 1) % SECTIONS.length];
+        if (e.key === 'ArrowLeft') location.hash = SECTIONS[(idx - 1 + SECTIONS.length) % SECTIONS.length];
+      });
+
+      // Footer: date + first line of the latest commit message, via the public GitHub API.
+      fetch('https://api.github.com/repos/contofalskyR/contofalskyrobert.github.io/commits?per_page=1')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          var c = d && d[0] && d[0].commit; if (!c) return;
+          var date = new Date(c.committer.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          var msg = (c.message || '').split('\n')[0];
+          if (msg.length > 72) msg = msg.slice(0, 69) + '\u2026';
+          document.getElementById('upd-line').innerHTML =
+            '<span class="dot" aria-hidden="true"></span><b>Updated ' + date + '</b> \u2014 \u201C' +
+            msg.replace(/</g, '&lt;') + '\u201D';
+        })
+        .catch(function () {});
+    })();
+  </script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
