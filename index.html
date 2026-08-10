@@ -65,10 +65,13 @@
       padding: 64px 24px 40px;
     }
     .monogram {
-      width: 46px; height: 46px; border: 1px solid #45474E;
+      width: 62px; height: 62px; position: relative;
       display: grid; place-items: center;
-      font: 300 14px var(--sans); letter-spacing: .2em; padding-left: .2em;
+      font: 300 12.5px var(--sans); letter-spacing: .2em; padding-left: .2em; color: var(--ink);
     }
+    .monogram::before, .monogram::after { content: ""; position: absolute; transform: rotate(45deg); }
+    .monogram::before { inset: 9px; border: 1px solid #45474E; }
+    .monogram::after { inset: 17px; border: 1px solid rgba(193,59,46,.5); }
     #header h1 {
       margin: 30px 0 0; font-size: clamp(24px, 5vw, 34px); font-weight: 300;
       letter-spacing: .22em; padding-left: .22em; text-transform: uppercase; color: var(--bright);
@@ -81,6 +84,13 @@
       color: var(--muted); padding-bottom: 6px; border-bottom: 2px solid transparent;
     }
     #nav a:hover { color: var(--ink); border-bottom-color: var(--line); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } }
+    @keyframes growRule { from { transform: scaleX(0); } }
+    #header .monogram, #header h1, #header .tagline, #header #nav { animation: fadeUp .8s cubic-bezier(.25,.1,.25,1) both; }
+    #header h1 { animation-delay: .12s; }
+    #header .rule { animation: growRule .9s cubic-bezier(.25,.1,.25,1) .3s both; }
+    #header .tagline { animation-delay: .4s; }
+    #header #nav { animation-delay: .55s; }
 
     /* ── Panels ─────────────────────────────────────────────────── */
     #main { max-width: 860px; margin: 0 auto; padding: 0 20px 48px; width: 100%; }
@@ -88,8 +98,10 @@
       display: none; border: 1px solid var(--line); background: var(--panel);
       padding: clamp(24px, 5vw, 44px);
     }
-    #main article.open { display: block; animation: panelIn .35s ease both; }
-    @keyframes panelIn { from { opacity: 0; transform: translateY(10px); } }
+    #main article.open { display: block; animation: panelIn .45s cubic-bezier(.22,.61,.36,1) both; }
+    #main article.open.closing { animation: panelOut .2s ease both; }
+    @keyframes panelIn { from { opacity: 0; transform: translateY(18px) scale(.988); } }
+    @keyframes panelOut { to { opacity: 0; transform: translateY(10px); } }
     body.is-open #header { display: none; }
     body.is-open #main { padding-top: 48px; }
 
@@ -239,7 +251,7 @@
     .npmk { font-weight: 200; font-size: 24px; letter-spacing: .02em; color: var(--ink); line-height: 1; }
     .npmk-sub { margin-top: 11px; font: 400 8.5px var(--mono); letter-spacing: .22em; color: var(--ink); }
     .npmk-sub em { display: block; width: 74px; height: 2px; background: var(--red); margin-top: 6px; }
-    .npcard .meta { position: relative; padding-right: 102px; min-height: 134px; }
+    .npcard .meta { position: relative; padding-right: 114px; min-height: 134px; }
     .npcard .n { font: 400 10px var(--mono); letter-spacing: .3em; color: var(--muted); }
     .npcard .g { font-size: 16.5px; font-weight: 300; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); margin-top: 9px; line-height: 1.25; border-bottom: 1px solid var(--line-soft); padding-bottom: 12px; }
     .npcard .t { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 12px; line-height: 1.7; }
@@ -269,7 +281,8 @@
       #header { min-height: 70vh; }
     }
     @media (prefers-reduced-motion: reduce) {
-      #main article.open { animation: none; }
+      #main article.open, #main article.open.closing,
+      #header .monogram, #header h1, #header .rule, #header .tagline, #header #nav { animation: none; }
       html { scroll-behavior: auto; }
     }
   </style>
@@ -836,10 +849,18 @@
         document.title = name ? name + ' — Robert Contofalsky' : 'Robert Contofalsky';
         if (id && focus !== false) { document.getElementById(id).focus({ preventScroll: true }); window.scrollTo(0, 0); }
       }
+      var noMotion = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
       function close() {
-        history.pushState('', document.title, location.pathname + location.search);
-        route(false);
-        var first = document.querySelector('#nav a'); if (first) first.focus({ preventScroll: true });
+        var id = current(), art = id && document.getElementById(id);
+        function done() {
+          history.pushState('', document.title, location.pathname + location.search);
+          route(false);
+          var first = document.querySelector('#nav a'); if (first) first.focus({ preventScroll: true });
+        }
+        if (art && !noMotion) {
+          art.classList.add('closing');
+          setTimeout(function () { art.classList.remove('closing'); done(); }, 190);
+        } else done();
       }
 
       window.addEventListener('hashchange', route);
