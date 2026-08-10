@@ -238,7 +238,7 @@
     .nprule h3 { margin: 0; font-size: 12px; font-weight: 400; letter-spacing: .45em; text-transform: uppercase; color: var(--muted); }
     .nprule .ext { flex: 1; height: 1px; background: var(--line); }
     #podcast .row-meta { letter-spacing: .22em; text-transform: uppercase; font-size: 10px; }
-    .arch { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 13px; }
+    .arch { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 13px; }
     details.eplist { margin-top: 22px; text-align: center; }
     details.eplist summary { list-style: none; display: inline-block; cursor: pointer; }
     details.eplist summary::-webkit-details-marker { display: none; }
@@ -254,7 +254,7 @@
     .npcard .meta { position: relative; padding-right: 114px; min-height: 134px; }
     .npcard .n { font: 400 10px var(--mono); letter-spacing: .3em; color: var(--muted); }
     .npcard .g { font-size: 16.5px; font-weight: 300; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); margin-top: 9px; line-height: 1.25; border-bottom: 1px solid var(--line-soft); padding-bottom: 12px; }
-    .npcard .t { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 12px; line-height: 1.7; }
+    .npcard .t { overflow-wrap: break-word; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-top: 12px; line-height: 1.7; }
     .npcard .w { font-size: 8px; letter-spacing: .25em; text-transform: uppercase; color: rgba(142,139,132,.7); margin-top: 18px; }
     .tick { width: 104px; background: #FBF7EC; color: #17181C; padding: 8px 8px 12px; box-shadow: 0 14px 28px rgba(0,0,0,.45); position: relative; }
     .tick::after { content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 8px; background-image: url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2714%27 height=%278%27%3E%3Cpath d=%27M0 0 L7 8 L14 0 Z%27 fill=%27%23FBF7EC%27/%3E%3C/svg%3E'); background-repeat: repeat-x; background-size: 14px 8px; }
@@ -581,15 +581,15 @@
       <div class="nprule"><span class="dash"></span><h3>Latest Episode</h3><span class="ext"></span></div>
       <div class="feature">
         <div style="flex:none; display:flex; align-items:center; justify-content:center; padding:28px 34px">
-          <div class="tick" style="width:126px; transform:rotate(-1.75deg)"><div class="tep-o"><div class="tep-i" style="font-size:11px; padding:6px 2px">EP 015</div></div><div class="qr" data-qr="https://youtu.be/-fn3GnLIZdQ" style="width:92px; height:92px"></div><div class="tick-scan" style="font-size:8.5px">Scan to play</div></div>
+          <div class="tick" style="width:126px; transform:rotate(-1.75deg)"><div class="tep-o"><div class="tep-i" style="font-size:11px; padding:6px 2px" id="latest-epnum">EP 015</div></div><div class="qr" id="latest-qr" data-qr="https://youtu.be/-fn3GnLIZdQ" style="width:92px; height:92px"></div><div class="tick-scan" style="font-size:8.5px">Scan to play</div></div>
         </div>
         <div class="feature-body">
-          <span style="font-family:var(--mono); font-size:11px; letter-spacing:.45em; color:var(--muted)">EP 015</span>
-          <span style="font-size:24px; font-weight:200; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); line-height:1.2">Trevor Fortner</span>
-          <span style="font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted)">High Stakes Decision-Making</span>
+          <span style="font-family:var(--mono); font-size:11px; letter-spacing:.45em; color:var(--muted)" id="latest-num">EP 015</span>
+          <span style="font-size:24px; font-weight:200; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); line-height:1.2" id="latest-guest">Trevor Fortner</span>
+          <span style="font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--muted)" id="latest-topic">High Stakes Decision-Making</span>
           <span style="display:flex; flex-wrap:wrap; align-items:center; gap:16px; margin-top:10px">
-            <a class="npbtn" href="https://www.youtube.com/watch?v=-fn3GnLIZdQ" target="_blank" rel="noopener" style="padding:10px 18px"><span class="tri"></span>Watch EP 015</a>
-            <span class="links"><a href="https://open.spotify.com/episode/52pmK0EDF5tHxRSYDGw77f?si=xe7_U_0YSIOUu3yM-C2VRQ" target="_blank" rel="noopener">[spotify]</a> <a href="https://podcasts.apple.com/us/podcast/trevor-fortner-high-stakes-decision-making-r-academy-15/id1696902521?i=1000765947129" target="_blank" rel="noopener">[apple]</a></span>
+            <a class="npbtn" id="latest-watch" href="https://youtu.be/-fn3GnLIZdQ" target="_blank" rel="noopener" style="padding:10px 18px"><span class="tri"></span>Watch&nbsp;<span id="latest-btn-num">EP 015</span></a>
+            <span class="links"><a id="latest-sp" href="https://open.spotify.com/episode/52pmK0EDF5tHxRSYDGw77f" target="_blank" rel="noopener">[spotify]</a> <a id="latest-ap" href="https://podcasts.apple.com/us/podcast/trevor-fortner-high-stakes-decision-making-r-academy-15/id1696902521?i=1000765947129" target="_blank" rel="noopener">[apple]</a></span>
           </span>
         </div>
       </div>
@@ -599,168 +599,12 @@
       </div>
 
       <div class="nprule"><span class="dash"></span><h3>Episode Archive</h3><span class="ext"></span></div>
-      <!-- ADD AN EPISODE CARD: copy an <a class="npcard"> below, edit the EP number/guest/topic,
-           set data-qr="https://youtu.be/VIDEO_ID" (the QR draws itself), and add a matching <li> to the full list inside <details>. -->
-      <div class="arch">
-        <a class="npcard" href="https://youtu.be/F6w8GxcFmOU?si=7FVO2gR8TVQsbOyo" target="_blank" rel="noopener">
-          <div>
-            <div class="npmk">[NP]</div>
-            <div class="npmk-sub">NO PREREQS<em></em></div>
-          </div>
-          <div class="meta">
-            <div class="n">EP 014</div>
-            <div class="g">Elkhonon Goldberg</div>
-            <div class="t">Brain Organization &amp; Neuropsychology</div>
-            <div class="w">With Robert Contofalsky</div>
-          
-            <div class="tick"><div class="tep-o"><div class="tep-i">EP 014</div></div><div class="qr" data-qr="https://youtu.be/F6w8GxcFmOU"></div><div class="tick-scan">Scan to play</div></div>
-          </div>
-        </a>
-        <a class="npcard" href="https://youtu.be/T8_O-2ClE_k" target="_blank" rel="noopener">
-          <div>
-            <div class="npmk">[NP]</div>
-            <div class="npmk-sub">NO PREREQS<em></em></div>
-          </div>
-          <div class="meta">
-            <div class="n">EP 013</div>
-            <div class="g">Adrian Bejan</div>
-            <div class="t">Constructal Law &amp; Time &middot; Round 3</div>
-            <div class="w">With Robert Contofalsky</div>
-          
-            <div class="tick"><div class="tep-o"><div class="tep-i">EP 013</div></div><div class="qr" data-qr="https://youtu.be/T8_O-2ClE_k"></div><div class="tick-scan">Scan to play</div></div>
-          </div>
-        </a>
-        <a class="npcard" href="https://youtu.be/CPyPfZMd3TE?si=HgjufPFq9V4wHdAJ" target="_blank" rel="noopener">
-          <div>
-            <div class="npmk">[NP]</div>
-            <div class="npmk-sub">NO PREREQS<em></em></div>
-          </div>
-          <div class="meta">
-            <div class="n">EP 012</div>
-            <div class="g">Steven Pinker</div>
-            <div class="t">Common Knowledge &amp; Social Coordination</div>
-            <div class="w">With Robert Contofalsky</div>
-          
-            <div class="tick"><div class="tep-o"><div class="tep-i">EP 012</div></div><div class="qr" data-qr="https://youtu.be/CPyPfZMd3TE"></div><div class="tick-scan">Scan to play</div></div>
-          </div>
-        </a>
-        <a class="npcard" href="https://youtu.be/v0Hvq8e2e40" target="_blank" rel="noopener">
-          <div>
-            <div class="npmk">[NP]</div>
-            <div class="npmk-sub">NO PREREQS<em></em></div>
-          </div>
-          <div class="meta">
-            <div class="n">EP 009</div>
-            <div class="g">Eric Hehman</div>
-            <div class="t">Prejudice &amp; Social Psychology</div>
-            <div class="w">With Robert Contofalsky</div>
-          
-            <div class="tick"><div class="tep-o"><div class="tep-i">EP 009</div></div><div class="qr" data-qr="https://youtu.be/v0Hvq8e2e40"></div><div class="tick-scan">Scan to play</div></div>
-          </div>
-        </a>
-        <a class="npcard" href="https://youtu.be/nvDEI_ALHus" target="_blank" rel="noopener">
-          <div>
-            <div class="npmk">[NP]</div>
-            <div class="npmk-sub">NO PREREQS<em></em></div>
-          </div>
-          <div class="meta">
-            <div class="n">EP 008</div>
-            <div class="g">Soud Al-Kharusi</div>
-            <div class="t">Astrophysics &amp; Neutrinos</div>
-            <div class="w">With Robert Contofalsky</div>
-          
-            <div class="tick"><div class="tep-o"><div class="tep-i">EP 008</div></div><div class="qr" data-qr="https://youtu.be/nvDEI_ALHus"></div><div class="tick-scan">Scan to play</div></div>
-          </div>
-        </a>
-        <a class="npcard" href="https://www.youtube.com/watch?v=zmDH3GS8uNo" target="_blank" rel="noopener">
-          <div>
-            <div class="npmk">[NP]</div>
-            <div class="npmk-sub">NO PREREQS<em></em></div>
-          </div>
-          <div class="meta">
-            <div class="n">EP 006</div>
-            <div class="g">Stevan Harnad</div>
-            <div class="t">Consciousness &amp; ChatGPT</div>
-            <div class="w">With Robert Contofalsky</div>
-          
-            <div class="tick"><div class="tep-o"><div class="tep-i">EP 006</div></div><div class="qr" data-qr="https://youtu.be/zmDH3GS8uNo"></div><div class="tick-scan">Scan to play</div></div>
-          </div>
-        </a>
-      </div>
+      <!-- The wall below renders itself from window.EPISODES (script near the bottom of this file). -->
+      <div class="arch" id="arch"></div>
+
       <details class="eplist">
         <summary class="npbtn">All 15 episodes &darr;</summary>
-        <ul class="rows" id="all-episodes">
-        <li>
-          <span class="num">14</span>
-          <div><div class="row-title">Elkhonon Goldberg: Brain Organization &amp; Neuropsychology</div><div class="row-meta">Dr. Elkhonon Goldberg, ABPP — Director of The Luria Institute</div></div>
-          <div class="row-links"><a href="https://youtu.be/F6w8GxcFmOU?si=7FVO2gR8TVQsbOyo" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/1CbzL77WjH6vDTzw0nJc3V?si=cQMZ-WZxQ7-NYXomyHiVMQ" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/us/podcast/elkhonon-goldberg-brain-organization-neuropsychology/id1696902521?i=1000750534125" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">13</span>
-          <div><div class="row-title">Adrian Bejan: Constructal Law, Social Systems &amp; Time — Round 3</div><div class="row-meta">Dr. Adrian Bejan — J.A. Jones Distinguished Professor of Mechanical Engineering at Duke University</div></div>
-          <div class="row-links"><a href="https://youtu.be/T8_O-2ClE_k" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6phMuwk4wiIGVWC7VeIz6V?si=5ROHqZ2rSdGe-QcTOUP2KA" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/adrian-bejan-constructal-law-social-systems-time-r/id1696902521?i=1000737348514" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">12</span>
-          <div><div class="row-title">Steven Pinker: Common Knowledge &amp; Social Coordination</div><div class="row-meta">Dr. Steven Pinker — Johnstone Family Professor of Psychology at Harvard University</div></div>
-          <div class="row-links"><a href="https://youtu.be/CPyPfZMd3TE?si=HgjufPFq9V4wHdAJ" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/3VYmoc1CA6zHQqoJLjElUU?si=j_413CDgTauJyTkG5noLBw" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/us/podcast/steven-pinker-common-knowledge-social-coordination/id1696902521?i=1000732564666" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">11</span>
-          <div><div class="row-title">Adrian Bejan: How Physics Explains Life &amp; Civilization — Round 2</div><div class="row-meta">Dr. Adrian Bejan — Duke University</div></div>
-          <div class="row-links"><a href="https://youtu.be/_IG8B-5hvck?si=54lDLf31QahPVQs3" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/7JrkIt3d0zS2h79NZfFBEs?si=z6zPMzqgTSOgxDm6B_Yz8A" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/adrian-bejan-how-physics-explains-life-civilization/id1696902521?i=1000728720747" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">10</span>
-          <div><div class="row-title">Adrian Bejan: Constructal Law &amp; Thermodynamics — Round 1</div><div class="row-meta">Dr. Adrian Bejan — Duke University</div></div>
-          <div class="row-links"><a href="https://youtu.be/_IG8B-5hvck" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/5qXnqXYlgUlQW0ZMUopDqe?si=rm2QCWe6TuyMlNHYoqZNvQ" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/adrian-bejan-constructal-law-thermodynamics-r-academy-10/id1696902521?i=1000728721778" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">09</span>
-          <div><div class="row-title">Eric Hehman: Prejudice &amp; Social Psychology</div><div class="row-meta">Dr. Eric Hehman — Associate Professor of Psychology at McGill University</div></div>
-          <div class="row-links"><a href="https://youtu.be/v0Hvq8e2e40" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/0CnpHyERbpnHmAXMBTGkQ5?si=FycgDjBWRFWhAfnXfb0peA" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/eric-hehman-prejudice-social-psychology-r-academy-9/id1696902521?i=1000698892277" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">08</span>
-          <div><div class="row-title">Soud Al-Kharusi: Astrophysics &amp; Neutrinos</div><div class="row-meta">Dr. Soud Al-Kharusi — Post-Doctoral Researcher at Stanford University</div></div>
-          <div class="row-links"><a href="https://youtu.be/nvDEI_ALHus" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6czGqez4B35AxMX0levBEu?si=-VmvxezSS_ye6Ol_bMMh1g" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/soud-al-kharusi-astrophysics-neutrinos-fundamental/id1696902521?i=1000680875364" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">07</span>
-          <div><div class="row-title">Aleksandrina Skvortsova: Placebo &amp; Nocebo Effects</div><div class="row-meta">Dr. Aleksandrina Skvortsova — Professor of Psychology at Leiden University</div></div>
-          <div class="row-links"><a href="https://youtu.be/fnLnv4z3Iuo?si=jnkKugvs6T6twB1y" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/4ZZXaY5ENc6zM7IXbVGwTv?si=9zCT650kTPSyb6gSQTYa1w" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/aleksandrina-skvortsova-placebo-nocebo-effects-r-academy/id1696902521?i=1000677010633" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">06</span>
-          <div><div class="row-title">Stevan Harnad: Cognitive Science, Consciousness &amp; ChatGPT</div><div class="row-meta">Dr. Stevan Harnad — Professor of Psychology at Universit&eacute; du Qu&eacute;bec &agrave; Montr&eacute;al</div></div>
-          <div class="row-links"><a href="https://www.youtube.com/watch?v=zmDH3GS8uNo" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6ljQiDeuGYI7Vo2fLggWGD?si=-5h8e3I0TAupUAaCWBVRYQ" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/stevan-harnad-cognitive-science-consciousness-chatgpt/id1696902521?i=1000670792688" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">05</span>
-          <div><div class="row-title">Laura Wagner: Language &amp; The Mind</div><div class="row-meta">Dr. Laura Wagner — Professor of Linguistics at The Ohio State University</div></div>
-          <div class="row-links"><a href="https://youtu.be/wV_gAvz-YeY?si=un70w4kh2cb10VD0" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/2rgPhaBnz2gwK5m1tIoBei?si=FTDQfKwiQ-Sr2PU8EDELbA" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/laura-wagner-language-the-mind-r-academy-episode-5/id1696902521?i=1000643210323" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">04</span>
-          <div><div class="row-title">John C. Gibbs: Moral Psychology &amp; Rehabilitating Juvenile Delinquency</div><div class="row-meta">Dr. John C. Gibbs — Professor of Psychology at The Ohio State University</div></div>
-          <div class="row-links"><a href="https://youtu.be/vBIhEodrF3o?si=YjEwNl1K1wE0sPEU" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6hFPRq6Fu8TL4VmcFWqX7U?si=0duisyEBQpSSeNd888RpgQ" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/john-c-gibbs-moral-psychology-rehabilitating-juvenile/id1696902521?i=1000636842558" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">03</span>
-          <div><div class="row-title">Richard Koestner: Human Motivation &amp; Personality</div><div class="row-meta">Dr. Richard Koestner — Professor of Psychology at McGill University</div></div>
-          <div class="row-links"><a href="https://youtu.be/w1Ue4hQ6VD0?si=LQv60-hDr7XtHMOc" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/6hiYagSfVwxzHmtZCo2BS1?si=THaZampMS22X55-dLAmVOw" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/richard-koestner-human-motivation-personality-r-academy/id1696902521?i=1000629933453" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">02</span>
-          <div><div class="row-title">Jeffrey Mogil: Pain, Placebo Effects, Medicine, Neuroscience</div><div class="row-meta">Dr. Jeffrey Mogil — E.P. Taylor Professor of Pain Studies and Distinguished James McGill Professor</div></div>
-          <div class="row-links"><a href="https://youtu.be/r5uqx3TeKQs?si=nACYuQSovZPqVnqm" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/4eOCs6CgGy4OckKeOl83oD?si=2qHvgSLqQKGhYgw9OdK7yw" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/jeffrey-mogil-pain-placebo-effects-medicine-neuroscience/id1696902521?i=1000622964640" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-        <li>
-          <span class="num">01</span>
-          <div><div class="row-title">Maxime Robert: Cerebral Palsy, Rehabilitation, VR, Neuroscience</div><div class="row-meta">Dr. Maxime Robert — Professor of Psychology at Laval University in Quebec City</div></div>
-          <div class="row-links"><a href="https://youtu.be/DiiZj0bBn7s?si=GOJA797xTFcGbMMH" target="_blank" rel="noopener">[yt]</a><a href="https://open.spotify.com/episode/2dRjqgsJH94rnHrJ13nvzP?si=MfDH_Wj_S4GQWQ_RjQ2iOw" target="_blank" rel="noopener">[sp]</a><a href="https://podcasts.apple.com/cz/podcast/maxime-robert-cerebral-palsy-rehabilitation-vr-neuroscience/id1696902521?i=1000620725655" target="_blank" rel="noopener">[ap]</a></div>
-        </li>
-      </ul>
+        <ul class="rows" id="eplist-all"></ul>
       </details>
 
       <div class="nprule" style="justify-content:center"><span class="dash"></span><h3>Guest Wall</h3><span class="dash"></span></div>
@@ -813,6 +657,55 @@
     </div>
   </footer>
 
+  <script>
+    /* ═══════════ EPISODE DATA — the ONLY thing to edit for a new episode ═══════════
+       Add ONE entry at the TOP of this list. Everything rebuilds itself:
+       · the Latest Episode block becomes that entry
+       · the archive wall always shows the next 6 episodes (QRs draw themselves)
+       · the full list + its episode count update
+       Fields: n = episode number · guest · topic (short line) · meta (full-list byline)
+               yt = youtu.be link (also becomes the QR) · sp = Spotify · ap = Apple */
+    window.EPISODES = [
+      { n: 15, guest: "Trevor Fortner", topic: "High Stakes Decision-Making", meta: "Trevor Fortner — EverydaySpy & EverydayWar", yt: "https://youtu.be/-fn3GnLIZdQ", sp: "https://open.spotify.com/episode/52pmK0EDF5tHxRSYDGw77f", ap: "https://podcasts.apple.com/us/podcast/trevor-fortner-high-stakes-decision-making-r-academy-15/id1696902521?i=1000765947129" },
+      { n: 14, guest: "Elkhonon Goldberg", topic: "Brain Organization & Neuropsychology", meta: "Dr. Elkhonon Goldberg, ABPP — Director of The Luria Institute", yt: "https://youtu.be/F6w8GxcFmOU", sp: "https://open.spotify.com/episode/1CbzL77WjH6vDTzw0nJc3V", ap: "https://podcasts.apple.com/us/podcast/elkhonon-goldberg-brain-organization-neuropsychology/id1696902521?i=1000750534125" },
+      { n: 13, guest: "Adrian Bejan", topic: "Constructal Law & Time · Round 3", meta: "Dr. Adrian Bejan — Duke University", yt: "https://youtu.be/T8_O-2ClE_k", sp: "https://open.spotify.com/episode/6phMuwk4wiIGVWC7VeIz6V", ap: "https://podcasts.apple.com/cz/podcast/adrian-bejan-constructal-law-social-systems-time-r/id1696902521?i=1000737348514" },
+      { n: 12, guest: "Steven Pinker", topic: "Common Knowledge & Social Coordination", meta: "Dr. Steven Pinker — Harvard University", yt: "https://youtu.be/CPyPfZMd3TE", sp: "https://open.spotify.com/episode/3VYmoc1CA6zHQqoJLjElUU", ap: "https://podcasts.apple.com/us/podcast/steven-pinker-common-knowledge-social-coordination/id1696902521?i=1000732564666" },
+      { n: 11, guest: "Adrian Bejan", topic: "Physics of Life & Civilization · Round 2", meta: "Dr. Adrian Bejan — Duke University", yt: "https://youtu.be/_IG8B-5hvck", sp: "https://open.spotify.com/episode/7JrkIt3d0zS2h79NZfFBEs", ap: "https://podcasts.apple.com/cz/podcast/adrian-bejan-how-physics-explains-life-civilization/id1696902521?i=1000728720747" },
+      { n: 10, guest: "Adrian Bejan", topic: "Constructal Law & Thermodynamics · Round 1", meta: "Dr. Adrian Bejan — Duke University", yt: "https://youtu.be/_IG8B-5hvck", sp: "https://open.spotify.com/episode/5qXnqXYlgUlQW0ZMUopDqe", ap: "https://podcasts.apple.com/cz/podcast/adrian-bejan-constructal-law-thermodynamics-r-academy-10/id1696902521?i=1000728721778" },
+      { n: 9, guest: "Eric Hehman", topic: "Prejudice & Social Psychology", meta: "Dr. Eric Hehman — McGill University", yt: "https://youtu.be/v0Hvq8e2e40", sp: "https://open.spotify.com/episode/0CnpHyERbpnHmAXMBTGkQ5", ap: "https://podcasts.apple.com/cz/podcast/eric-hehman-prejudice-social-psychology-r-academy-9/id1696902521?i=1000698892277" },
+      { n: 8, guest: "Soud Al-Kharusi", topic: "Astrophysics & Neutrinos", meta: "Dr. Soud Al-Kharusi — Stanford University", yt: "https://youtu.be/nvDEI_ALHus", sp: "https://open.spotify.com/episode/6czGqez4B35AxMX0levBEu", ap: "https://podcasts.apple.com/cz/podcast/soud-al-kharusi-astrophysics-neutrinos-fundamental/id1696902521?i=1000680875364" },
+      { n: 7, guest: "Aleksandrina Skvortsova", topic: "Placebo & Nocebo Effects", meta: "Dr. Aleksandrina Skvortsova — Leiden University", yt: "https://youtu.be/fnLnv4z3Iuo", sp: "https://open.spotify.com/episode/4ZZXaY5ENc6zM7IXbVGwTv", ap: "https://podcasts.apple.com/cz/podcast/aleksandrina-skvortsova-placebo-nocebo-effects-r-academy/id1696902521?i=1000677010633" },
+      { n: 6, guest: "Stevan Harnad", topic: "Consciousness & ChatGPT", meta: "Dr. Stevan Harnad — Université du Québec à Montréal", yt: "https://youtu.be/zmDH3GS8uNo", sp: "https://open.spotify.com/episode/6ljQiDeuGYI7Vo2fLggWGD", ap: "https://podcasts.apple.com/cz/podcast/stevan-harnad-cognitive-science-consciousness-chatgpt/id1696902521?i=1000670792688" },
+      { n: 5, guest: "Laura Wagner", topic: "Language & The Mind", meta: "Dr. Laura Wagner — The Ohio State University", yt: "https://youtu.be/wV_gAvz-YeY", sp: "https://open.spotify.com/episode/2rgPhaBnz2gwK5m1tIoBei", ap: "https://podcasts.apple.com/cz/podcast/laura-wagner-language-the-mind-r-academy-episode-5/id1696902521?i=1000643210323" },
+      { n: 4, guest: "John C. Gibbs", topic: "Moral Psychology & Juvenile Delinquency", meta: "Dr. John C. Gibbs — The Ohio State University", yt: "https://youtu.be/vBIhEodrF3o", sp: "https://open.spotify.com/episode/6hFPRq6Fu8TL4VmcFWqX7U", ap: "https://podcasts.apple.com/cz/podcast/john-c-gibbs-moral-psychology-rehabilitating-juvenile/id1696902521?i=1000636842558" },
+      { n: 3, guest: "Richard Koestner", topic: "Human Motivation & Personality", meta: "Dr. Richard Koestner — McGill University", yt: "https://youtu.be/w1Ue4hQ6VD0", sp: "https://open.spotify.com/episode/6hiYagSfVwxzHmtZCo2BS1", ap: "https://podcasts.apple.com/cz/podcast/richard-koestner-human-motivation-personality-r-academy/id1696902521?i=1000629933453" },
+      { n: 2, guest: "Jeffrey Mogil", topic: "Pain, Placebo Effects & Neuroscience", meta: "Dr. Jeffrey Mogil — E.P. Taylor Professor of Pain Studies, McGill University", yt: "https://youtu.be/r5uqx3TeKQs", sp: "https://open.spotify.com/episode/4eOCs6CgGy4OckKeOl83oD", ap: "https://podcasts.apple.com/cz/podcast/jeffrey-mogil-pain-placebo-effects-medicine-neuroscience/id1696902521?i=1000622964640" },
+      { n: 1, guest: "Maxime Robert", topic: "Cerebral Palsy, Rehabilitation & VR", meta: "Dr. Maxime Robert — Laval University", yt: "https://youtu.be/DiiZj0bBn7s", sp: "https://open.spotify.com/episode/2dRjqgsJH94rnHrJ13nvzP", ap: "https://podcasts.apple.com/cz/podcast/maxime-robert-cerebral-palsy-rehabilitation-vr-neuroscience/id1696902521?i=1000620725655" }
+    ];
+    window.renderEpisodes = function () {
+      var E = window.EPISODES || []; if (!E.length) return;
+      function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+      function pad(n, w) { n = String(n); while (n.length < w) n = "0" + n; return n; }
+      function set(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
+      var L = E[0];
+      set("latest-num", "EP " + pad(L.n, 3)); set("latest-epnum", "EP " + pad(L.n, 3)); set("latest-btn-num", "EP " + pad(L.n, 3));
+      set("latest-guest", L.guest); set("latest-topic", L.topic);
+      var w = document.getElementById("latest-watch"); if (w) w.href = L.yt;
+      var sp = document.getElementById("latest-sp"); if (sp) sp.href = L.sp;
+      var ap = document.getElementById("latest-ap"); if (ap) ap.href = L.ap;
+      var q = document.getElementById("latest-qr"); if (q && q.getAttribute("data-qr") !== L.yt) { q.setAttribute("data-qr", L.yt); q.innerHTML = ""; }
+      var arch = document.getElementById("arch");
+      if (arch) arch.innerHTML = E.slice(1, 7).map(function (e) {
+        return '<a class="npcard" href="' + e.yt + '" target="_blank" rel="noopener"><div><div class="npmk">[NP]</div><div class="npmk-sub">NO PREREQS<em></em></div></div><div class="meta"><div class="n">EP ' + pad(e.n, 3) + '</div><div class="g">' + esc(e.guest) + '</div><div class="t">' + esc(e.topic) + '</div><div class="w">With Robert Contofalsky</div><div class="tick"><div class="tep-o"><div class="tep-i">EP ' + pad(e.n, 3) + '</div></div><div class="qr" data-qr="' + e.yt + '"></div><div class="tick-scan">Scan to play</div></div></div></a>';
+      }).join("");
+      var ul = document.getElementById("eplist-all");
+      if (ul) ul.innerHTML = E.map(function (e) {
+        return '<li><span class="num">' + pad(e.n, 2) + '</span><div><div class="row-title">' + esc(e.guest) + ': ' + esc(e.topic) + '</div><div class="row-meta">' + esc(e.meta) + '</div></div><div class="row-links"><a href="' + e.yt + '" target="_blank" rel="noopener">[yt]</a><a href="' + e.sp + '" target="_blank" rel="noopener">[sp]</a><a href="' + e.ap + '" target="_blank" rel="noopener">[ap]</a></div></li>';
+      }).join("");
+      var sum = document.querySelector("details.eplist summary");
+      if (sum) sum.innerHTML = sum.innerHTML.replace(/\d+/, E.length);
+    };
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
     (function () {
@@ -827,7 +720,8 @@
           try { new QRCode(els[i], { text: els[i].getAttribute('data-qr'), width: size, height: size, colorDark: '#17181C', colorLight: '#FBF7EC', correctLevel: QRCode.CorrectLevel.M }); } catch (e) {}
         }
       }
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', drawQRs); else drawQRs();
+      function boot() { if (window.renderEpisodes) window.renderEpisodes(); drawQRs(); }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
     })();
   </script>
   <script>
