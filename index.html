@@ -78,6 +78,17 @@
     }
     .rule { width: 56px; height: 1px; background: #45474E; margin: 24px 0; }
     .tagline { margin: 0; max-width: 480px; font-weight: 300; font-size: 16px; color: var(--muted); }
+    .now-line {
+      margin-top: 20px; font: 300 13px var(--sans); letter-spacing: .14em;
+      text-transform: uppercase; color: var(--muted);
+      animation: nowFloat .5s ease-out .9s both;
+    }
+    .now-line .now-label { color: var(--red-text); font-weight: 400; }
+    @keyframes nowFloat { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+    .now-line .dots i { font-style: normal; animation: dotBlink 1.4s infinite both; }
+    .now-line .dots i:nth-child(2) { animation-delay: .2s; }
+    .now-line .dots i:nth-child(3) { animation-delay: .4s; }
+    @keyframes dotBlink { 0%, 80%, 100% { opacity: 0; } 30%, 50% { opacity: 1; } }
     #nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 28px; margin-top: 38px; }
     #nav a {
       font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
@@ -302,6 +313,7 @@
     <h1>Robert Contofalsky</h1>
     <div class="rule" aria-hidden="true"></div>
     <p class="tagline">Cognitive Science Ph.D. student at Rutgers University.<br>Host of the <span style="color:var(--red-text)">No Prereqs</span> podcast.</p>
+    <div class="now-line"><span class="now-label">Currently:</span> Writing my masters<span class="dots"><i>.</i><i>.</i><i>.</i></span></div>
     <nav id="nav" aria-label="Sections">
       <a href="#about">About</a>
       <a href="#research">Research</a>
